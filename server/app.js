@@ -44,19 +44,19 @@ app.use(function (req, res, next) {
 });
 
 // use routers:
-app.use('/login', loginRouter);
-app.use('/register', registerRouter);
-app.use('/profile', profileRouter);
-app.use('/sdarot', sdarotRouter);
-app.use('/sratim', sratimRouter);
-app.use('/videoPlayer', videoPlayerRouter);
-app.use('/tracking', trackingRouter);
+// app.use('/login', loginRouter);
+// app.use('/register', registerRouter);
+// app.use('/profile', profileRouter);
+// app.use('/sdarot', sdarotRouter);
+// app.use('/sratim', sratimRouter);
+// app.use('/videoPlayer', videoPlayerRouter);
+// app.use('/tracking', trackingRouter);
     // use mysql routers:
-    app.use('/user', userRouter);
-    app.use('/password', passwordRouter);
-    app.use('/media', mediaRouter);
-    app.use('/user_watched', user_watchedRouter);
-    app.use('/post', postRouter);
-    app.use('/action', actionRouter);
+    // app.use('/user', userRouter);
+    // app.use('/password', passwordRouter);
+    // app.use('/media', mediaRouter);
+    // app.use('/user_watched', user_watchedRouter);
+    // app.use('/post', postRouter);
+    // app.use('/action', actionRouter);
 
 module.exports = app;
