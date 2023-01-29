@@ -50,17 +50,18 @@ let makeTables = (dir) => {
                     " " + (currentJson.columns[i].col_name) + " " +
                     (currentJson.columns[i].type) +
                     (currentJson.columns[i].AUTO_INCREMENT ? " AUTO_INCREMENT" : "") +
-                    (currentJson.columns[i].PRIMARY_KEY ? "" : "") +
+                    // (currentJson.columns[i].PRIMARY_KEY ? "" : "") +
                     (currentJson.columns[i].UNIQUE ? " UNIQUE" : "") +
                     (currentJson.columns[i].NOT_NULL ? " NOT NULL" : "") +
                     (currentJson.columns[i].FOREIGN_KEY ? ", FOREIGN KEY " + "(" + currentJson.columns[i].col_name + ")" + " REFERENCES " + currentJson.columns[i].FOREIGN_KEY + "(" + currentJson.columns[i].col_name + ")" : ""))
-                    primery.push(currentJson.columns[i].col_name)
+                    currentJson.columns[i].PRIMARY_KEY ? primery.push(currentJson.columns[i].col_name) : "";
                 }
                 console.log("aaa,    :", primery);
             fullTable.push(` CONSTRAINT PK_${currentJson.table_name} PRIMARY KEY (${primery})`)
             var sql = `CREATE TABLE ${currentJson.table_name} (
                 ${fullTable.join()})`;
                 console.log("sql:                  ",sql);
+                primery = [];
             con.query(sql, function (err, result) {
                 if (err) throw err;
                 console.log(`Table ${currentJson.table_name} created`);
