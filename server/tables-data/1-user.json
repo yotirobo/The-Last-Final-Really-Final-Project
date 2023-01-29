@@ -5,7 +5,7 @@
         {"col_name": "name", "type": "VARCHAR(30)" , "AUTO_INCREMENT": false , "PRIMARY_KEY": false, "UNIQUE": false, "NOT_NULL": true, "FOREIGN_KEY": false},
         {"col_name": "email", "type": "VARCHAR(30)" , "AUTO_INCREMENT": false , "PRIMARY_KEY": false, "UNIQUE": true, "NOT_NULL": true, "FOREIGN_KEY": false},
         {"col_name": "age", "type": "INT" , "AUTO_INCREMENT": false , "PRIMARY_KEY": false, "UNIQUE": false, "NOT_NULL": true, "FOREIGN_KEY": false},
-        {"col_name": "favorite_genre", "type": "ENUM('Animated', 'Comedy', 'Action', 'Romance', 'Drama')" , "AUTO_INCREMENT": false , "PRIMARY_KEY": false, "UNIQUE": true, "NOT_NULL": true, "FOREIGN_KEY": false},  
+        {"col_name": "favorite_genre", "type": "ENUM('Animated', 'Comedy', 'Action', 'Romance', 'Drama')" , "AUTO_INCREMENT": false , "PRIMARY_KEY": false, "UNIQUE": false, "NOT_NULL": true, "FOREIGN_KEY": false},  
         {"col_name": "is_admin", "type": "BOOLEAN" , "AUTO_INCREMENT": false , "PRIMARY_KEY": false, "UNIQUE": false, "NOT_NULL": true, "FOREIGN_KEY": false},
         {"col_name": "Account_expiration_date", "type": "DATE", "AUTO_INCREMENT": false , "PRIMARY_KEY": false, "UNIQUE": false, "NOT_NULL": true, "FOREIGN_KEY": false}
     ]
