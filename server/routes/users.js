@@ -13,10 +13,12 @@ const con = sql.createConnection({
 
 /* GET users listing. */
 
-router.get('/', (req , res )=> {
+router.get('/user', (req , res )=> {
   let sql = `select * from user where name = '${req.query.name}'`
   con.query(sql, (err, result) => {
     if (err) { console.log(err); return; }
+    console.log(sql);
+    console.log(result);
     res.send(result)
   })
 })

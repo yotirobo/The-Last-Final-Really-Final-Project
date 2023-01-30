@@ -32,10 +32,10 @@ function HomePage() {
     let data = await response.json();
     console.log(data);
     if (data) {
-      const responseForUserID =  await fetch(`http://localhost:5000/users/?user=${userInfo.name}`)
-      console.log(responseForUserID);
+      const responseForUserID =  await fetch(`http://localhost:5000/users/user?name=${userInfo.name}`)
       const data = await responseForUserID.json();
-      localStorage.setItem('userOnline', JSON.stringify({ name:  userInfo.name, user_id: responseForUserID.user_id }));
+      console.log(data);
+      localStorage.setItem('userOnline', JSON.stringify({ name:  userInfo.name,user_id : responseForUserID.user_id}));
       navigate("/profile")
     } else {
       alert('name or password are incorrect')
