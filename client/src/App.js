@@ -15,6 +15,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<HomePage />} />
         <Route exact path="/profile" element={<Profile />} />
+
         {/* <Route exact path="/sdarot" element={<Sdarot />} />
         <Route exact path="/sratim" element={<Sratim />} />
         <Route exact path="/videoplayer" element={<VideoPlayer />} />

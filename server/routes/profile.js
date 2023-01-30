@@ -13,8 +13,9 @@ const con = sql.createConnection({
 
 /* GET users listing. */
 
+
 router.get('/', (req , res )=> {
-  let sql = `select * from user where user = '${req.query.username}'`
+  let sql = `select * from user where user_id = '${req.query.user_id}'`
   con.query(sql, (err, result) => {
     if (err) { console.log(err); return; }
     console.log(result);
@@ -22,28 +23,6 @@ router.get('/', (req , res )=> {
   })
 })
 
-router.post("/", function (req, res) {
-  let sql = `SELECT username,password
-  FROM user 
-  JOIN Passwords 
-  using(user_id)
-  WHERE username = '${req.body.username}'`
-  con.query(sql, (err, result) => {
-    if (err) { console.log(err); return; }
-    console.log(result[0]);
-    if (result[0]) {
-      if (result[0]?.password === req.body.password) {
-        res.status(200).send(true);
-      }
-      else {
-        res.status(200).send(false)
-      }
-    }
-    else {
-      res.status(200).send(false)
-    }
-  })
-});
 
 
 module.exports = router;
