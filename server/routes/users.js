@@ -16,8 +16,6 @@ const con = sql.createConnection({
 router.get('/', (req , res )=> {
   let sql = `select * from user where name = '${req.query.name}'`
   con.query(sql, (err, result) => {
-    console.log("🚀 ~ file: users.js:19 ~ con.query ~ result", result)
-    console.log("🚀 ~ file: users.js:19 ~ router.get ~ req.query.name", req.query.name)
     if (err) { console.log(err); return; }
     res.send(result)
   })

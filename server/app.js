@@ -39,7 +39,7 @@ app.use(function (req, res, next) {
 // use routers:
 app.use('/users', usersRouter);
 app.use('/profile', profileRouter);
-app.use('/movies', sratimRouter);
+// app.use('/movies', sratimRouter);
 // app.use('/TVshows', sdarotRouter);
 // app.use('/videoPlayer', videoPlayerRouter);
 // app.use('/tracking', trackingRouter);
