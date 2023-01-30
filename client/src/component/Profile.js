@@ -26,7 +26,7 @@ function ShowInfo() {
 };
     useEffect(() => {
         myInfo();
-    }, []) // at the first time the age loads
+    }, []) // at the first time the page loads
 
     useEffect(() => {
         myInfo();

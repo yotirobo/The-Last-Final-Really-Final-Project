@@ -1,6 +1,6 @@
-var mysql = require('mysql');
-let fs = require('fs');
-let dir = fs.readdirSync('./tables-data')
+// var mysql = require('mysql');
+// let fs = require('fs');
+// let dir = fs.readdirSync('./tables-data')
 
 // create the database "final_project_DB"
 // var con = mysql.createConnection({
@@ -28,48 +28,48 @@ let dir = fs.readdirSync('./tables-data')
 // //   });
 // // });
 
-var con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "z10mz10m",
-    database: "final_project_DB"
-});
+// var con = mysql.createConnection({
+//     host: "localhost",
+//     user: "root",
+//     password: "z10mz10m",
+//     database: "final_project_DB"
+// });
 
 // //function that create all tables:
-let makeTables = (dir) => {
-    con.connect(function (err) {
-    for (let j = 0; j < dir.length; j++) {
-        let currentJson = require(`./tables-data/${dir[j]}`);
-            if (err) throw err; 
-            currentJson.table_name;
-            console.log("Connected!");
-            let fullTable = []
-            let primery = [];
-            for (let i = 0; i < currentJson.columns.length; i++) {
-                fullTable.push(
-                    " " + (currentJson.columns[i].col_name) + " " +
-                    (currentJson.columns[i].type) +
-                    (currentJson.columns[i].AUTO_INCREMENT ? " AUTO_INCREMENT" : "") +
-                    // (currentJson.columns[i].PRIMARY_KEY ? "" : "") +
-                    (currentJson.columns[i].UNIQUE ? " UNIQUE" : "") +
-                    (currentJson.columns[i].NOT_NULL ? " NOT NULL" : "") +
-                    (currentJson.columns[i].FOREIGN_KEY ? ", FOREIGN KEY " + "(" + currentJson.columns[i].col_name + ")" + " REFERENCES " + currentJson.columns[i].FOREIGN_KEY + "(" + currentJson.columns[i].col_name + ")" : ""))
-                    currentJson.columns[i].PRIMARY_KEY ? primery.push(currentJson.columns[i].col_name) : "";
-                }
-                console.log("aaa,    :", primery);
-            fullTable.push(` CONSTRAINT PK_${currentJson.table_name} PRIMARY KEY (${primery})`)
-            var sql = `CREATE TABLE ${currentJson.table_name} (
-                ${fullTable.join()})`;
-                console.log("sql:                  ",sql);
-                primery = [];
-            con.query(sql, function (err, result) {
-                if (err) throw err;
-                console.log(`Table ${currentJson.table_name} created`);
-            });
-        }
-    });
-}
-makeTables(dir);
+// let makeTables = (dir) => {
+//     con.connect(function (err) {
+//     for (let j = 0; j < dir.length; j++) {
+//         let currentJson = require(`./tables-data/${dir[j]}`);
+//             if (err) throw err; 
+//             currentJson.table_name;
+//             console.log("Connected!");
+//             let fullTable = []
+//             let primery = [];
+//             for (let i = 0; i < currentJson.columns.length; i++) {
+//                 fullTable.push(
+//                     " " + (currentJson.columns[i].col_name) + " " +
+//                     (currentJson.columns[i].type) +
+//                     (currentJson.columns[i].AUTO_INCREMENT ? " AUTO_INCREMENT" : "") +
+//                     // (currentJson.columns[i].PRIMARY_KEY ? "" : "") +
+//                     (currentJson.columns[i].UNIQUE ? " UNIQUE" : "") +
+//                     (currentJson.columns[i].NOT_NULL ? " NOT NULL" : "") +
+//                     (currentJson.columns[i].FOREIGN_KEY ? ", FOREIGN KEY " + "(" + currentJson.columns[i].col_name + ")" + " REFERENCES " + currentJson.columns[i].FOREIGN_KEY + "(" + currentJson.columns[i].col_name + ")" : ""))
+//                     currentJson.columns[i].PRIMARY_KEY ? primery.push(currentJson.columns[i].col_name) : "";
+//                 }
+//                 console.log("aaa,    :", primery);
+//             fullTable.push(` CONSTRAINT PK_${currentJson.table_name} PRIMARY KEY (${primery})`)
+//             var sql = `CREATE TABLE ${currentJson.table_name} (
+//                 ${fullTable.join()})`;
+//                 console.log("sql:                  ",sql);
+//                 primery = [];
+//             con.query(sql, function (err, result) {
+//                 if (err) throw err;
+//                 console.log(`Table ${currentJson.table_name} created`);
+//             });
+//         }
+//     });
+// }
+// makeTables(dir);
 
 
 // //insert into tables
