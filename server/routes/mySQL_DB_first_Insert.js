@@ -44,8 +44,8 @@ router.post('/post', function (req, res, next) {
     insertIntoTable('post', 'user_id, media_id, title, body, deleted', req , res)
 });
 
-// router.post('/action', function (req, res, next) {
-//     insertIntoTable('action', 'action_type, description, time, user_id', req , res)
-// });
+router.post('/action', function (req, res, next) {
+    insertIntoTable('action', 'action_type, description, time, user_id', req , res)
+});
 
 module.exports = router;
