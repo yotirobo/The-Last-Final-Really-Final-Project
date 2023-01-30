@@ -2,12 +2,13 @@
     "table_name" : "media",
     "columns" : [
         {"col_name": "media_id", "type": "INT" , "AUTO_INCREMENT": true , "PRIMARY_KEY": true, "UNIQUE":true, "NOT_NULL":true, "FOREIGN_KEY": false},
+        {"col_name": "title", "type": "VARCHAR(50)" , "AUTO_INCREMENT": false , "PRIMARY_KEY": false, "UNIQUE": true, "NOT_NULL": true, "FOREIGN_KEY": false},
         {"col_name": "src", "type": "VARCHAR(50)" , "AUTO_INCREMENT": false , "PRIMARY_KEY": false, "UNIQUE": true, "NOT_NULL": true, "FOREIGN_KEY": false},
         {"col_name": "deleted", "type": "BOOLEAN" , "AUTO_INCREMENT": false , "PRIMARY_KEY": false, "UNIQUE": false, "NOT_NULL": true, "FOREIGN_KEY": false},
         {"col_name": "publish_Date", "type": "DATE" , "AUTO_INCREMENT": false , "PRIMARY_KEY": false, "UNIQUE":false, "NOT_NULL":true, "FOREIGN_KEY": false},
         {"col_name": "likes", "type": "INT" , "AUTO_INCREMENT": false , "PRIMARY_KEY": false, "UNIQUE": false, "NOT_NULL": true, "FOREIGN_KEY": false},
         {"col_name": "genre", "type": "ENUM('Animated', 'Comedy', 'Action', 'Romance', 'Drama')" , "AUTO_INCREMENT": false , "PRIMARY_KEY": false, "UNIQUE": false, "NOT_NULL": true, "FOREIGN_KEY": false},  
-        {"col_name": "rate", "type": "INT" , "AUTO_INCREMENT": false , "PRIMARY_KEY": false, "UNIQUE": false, "NOT_NULL": true, "FOREIGN_KEY": false},
+        {"col_name": "rate", "type": "DECIMAL(3,1)" , "AUTO_INCREMENT": false , "PRIMARY_KEY": false, "UNIQUE": false, "NOT_NULL": true, "FOREIGN_KEY": false},
         {"col_name": "movie_or_TVShow", "type": "ENUM('movie', 'TVShow')" , "AUTO_INCREMENT": false , "PRIMARY_KEY": false, "UNIQUE": false, "NOT_NULL": true, "FOREIGN_KEY": false}
     ]
 }
