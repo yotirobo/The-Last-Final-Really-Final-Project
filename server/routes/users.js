@@ -10,7 +10,7 @@ const con = sql.createConnection({
   database: "final_project_DB"
 })
 
-router.get('/', (req , res )=> {
+router.get('/user', (req , res )=> {
   let sql = `select * from user where name = '${req.query.name}'`
   con.query(sql, (err, result) => {
     if (err) { console.log(err); return; }

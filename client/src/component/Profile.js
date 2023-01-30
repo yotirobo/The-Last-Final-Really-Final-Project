@@ -4,9 +4,7 @@ import NavComponent from "./navComponent";
 
 function ShowInfo() {
     const [id, setId] = useState(JSON.parse(localStorage.getItem("userOnline")).user_id);
-    console.log("🚀 ~ file: Profile.js:7 ~ ShowInfo ~ id", id)
     const currentUser = JSON.parse(localStorage.getItem("userOnline"));
-    console.log("🚀 ~ file: Profile.js:8 ~ ShowInfo ~ currentUser", currentUser)
     const [draw, setDraw] = useState([]);
     const [userData, setUserData] = useState({});
     const [ifData, setIfData] = useState(false)
@@ -18,11 +16,14 @@ function ShowInfo() {
         age: Number,
         creditCard: Number,
         genre: "",
-        subscirbeTime: Number
+        Account_expiration_date: Number
     })
 
     const handleChange = (e) => {
         e.preventDefault();
+        console.log(e.target.name);
+        console.log(e.target.value);
+
         setProfileInfo({
             ...profileInfo,
             [e.target.name]: e.target.value
@@ -50,7 +51,7 @@ function ShowInfo() {
                 age: profileInfo.age,
                 creditCard: profileInfo.creditCard,
                 genre: profileInfo.genre,
-                subscirbeTime: profileInfo.subscirbeTime
+                Account_expiration_date: profileInfo.Account_expiration_date
             })
         });
         let data = await response.json();
@@ -71,38 +72,33 @@ function ShowInfo() {
         setIfData(true);
         let tempArray = [];
         for (let item in userData) {
-            tempArray.push({ title: item, body: userData[item] })
+            tempArray.push({ title: item, body: userData[item], type: ()=> getType(item)})
         }
         setUserData(data[0])
         setDraw(tempArray)
+        console.log(tempArray)
     }
     const submitButton = () => {
         setFlag(!flag)
         edit();
     }
 
-    const getType = (e) => {
-        switch (e.target) {
+    const getType = (item) => {
+        switch (item) {
             case "name":
                 return 'text';
-                break;
             case 'email':
                 return 'email';
-                break;
             case 'age':
                 return 'number';
-                break;
             case 'creditCard':
                 return 'number';
-                break;
             case 'genre':
                 return 'text';
-                break;
-            case 'subscirbeTime':
+            case 'Account_expiration_date':
                 return 'date';
-                break;
             default:
-            // code block
+                return 'text';
         }
 
     }
@@ -123,17 +119,19 @@ function ShowInfo() {
                     return "";
                 } else {
                     return (
-                        <p onChange={handleChange} key={Math.random()}>
-                            <b>{item.title}:</b>{item.body}
-                            <input style={flag ? { display: "block" } : { display: "none" }} onChange={handleChange} type='text' id={item.title} required />
-                        </p>);
+                        <form>
+                            <p>
+                                <b>{item.title}:</b>{item.body}
+                                <input name={`${item.title}`} value={profileInfo[item.title]} style={flag ? { display: "block" } : { display: "none" }} onChange={handleChange} type={item.type} id={item.title} required />
+                            </p>
+                        </form>);
                 }
             })}
             <button onClick={() => setFlag(!flag)}>edit</button>
             <button style={flag ? { display: "block" } : { display: "none" }} onClick={submitButton}>Change!</button>
             <h2>Would you like to extend your subscription?</h2>
             <input onChange={handleChange} type='date' id={'Account_expiration_date'} required />
-            <button onClick={edit}>extend!</button>
+            <button onClick={edit}>Extend now!</button>
         </>
     )
 }
