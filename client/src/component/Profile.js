@@ -26,7 +26,7 @@ function ShowInfo() {
 };
     useEffect(() => {
         myInfo();
-    }, []) // at the first time the age loads
+    }, []) // at the first time the page loads
 
     useEffect(() => {
         myInfo();
@@ -77,10 +77,14 @@ function ShowInfo() {
     return (
         <>
             <Link to="/sdarot">Sdarot</Link>
+            <br/>
             <Link to="/sratim">Sratim</Link>
+            <br/>
             <Link to="/rofile">Your profile</Link>
+            <br/>
             <Link to="/">LogOut</Link>
             <h1>Hello Im your Profile</h1>
+            <h3>And this is your info, you can see and </h3>
             {draw?.map((item) => {
                 if (item.title === "password") {
                     return "";

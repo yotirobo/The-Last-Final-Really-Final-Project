@@ -13,8 +13,7 @@ let cors = require('cors');
 // });
 
 //routers:
-let loginRouter = require('./routes/login');
-let registerRouter = require('./routes/register');
+let usersRouter = require('./routes/users');
 let profileRouter = require('./routes/profile');
 let sdarotRouter = require('./routes/sdarot');
 let sratimRouter = require('./routes/sratim');
@@ -38,9 +37,8 @@ app.use(function (req, res, next) {
 });
 
 // use routers:
-// app.use('/login', loginRouter);
-// app.use('/register', registerRouter);
-// app.use('/profile', profileRouter);
+app.use('/users', usersRouter);
+app.use('/profile', profileRouter);
 // app.use('/sdarot', sdarotRouter);
 // app.use('/sratim', sratimRouter);
 // app.use('/videoPlayer', videoPlayerRouter);

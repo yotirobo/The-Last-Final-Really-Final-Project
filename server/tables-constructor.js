@@ -1,6 +1,7 @@
 var mysql = require('mysql');
 let fs = require('fs');
 let dir = fs.readdirSync('./tables-data')
+// import fetch from 'node-fetch'
 
 // create the database "final_project_DB"
 // var con = mysql.createConnection({

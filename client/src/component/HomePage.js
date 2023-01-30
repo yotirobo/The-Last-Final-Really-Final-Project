@@ -6,94 +6,77 @@ import { useNavigate } from "react-router-dom";
 function HomePage() {
   const navigate = useNavigate();
   const [currentView, setCurrentView] = useState('signUp')
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
-  const [age, setAge] = useState('');
-  const [creditCard, setCreditCard] = useState('');
-  const [subscirbeTime, setSubscribeTime] = useState('');
-  const [janer, setJaner] = useState('');
+  const[userInfo, setUserInfo] = useState({
+    name: '',
+    password: '',
+    email: '',
+    age: Number,
+    creditCard: Number,
+    Account_expiration_date: Date,
+    genre: '',
+  })
 
   async function logInCheck(e) {
     e.preventDefault()
     const response = await fetch('http://localhost:5000/users', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            username: username,
-            password: password,
-        })
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ 
+        name: userInfo.name,
+        password:  userInfo.password,
+      })
     });
     let data = await response.json();
     console.log(data);
     if (data) {
-        const respone = await fetch(`http://localhost:5000/users?user=${username}`)
-        const data = await respone.json();
-        localStorage.setItem('userOnline', JSON.stringify({username : username, user_id : data.user_id}));
-        navigate("/profile")
+      const respone = await fetch(`http://localhost:5000/users?user=${ userInfo.name}`)
+      const data = await respone.json();
+      localStorage.setItem('userOnline', JSON.stringify({ name:  userInfo.name, user_id: data.user_id }));
+      navigate("/profile")
     } else {
-        navigate('/')
-        alert('username or password are incorrect')
+      navigate('/')
+      alert('name or password are incorrect')
     }
-}
-async function register(e) {
-  e.preventDefault()
-  const response = await fetch('http://localhost:5000/users/users', {
+  }
+  async function register(e) {
+    e.preventDefault()
+    const response = await fetch('http://localhost:5000/users/register', {
       method: 'POST',
       headers: {
-          'Content-Type': 'application/json'
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-          username: username,
-          password: password,
-          email: email,
-          age: age,
-          creditCard: creditCard,
-          janer: janer,
-          subscirbeTimem : subscirbeTime
+        name: userInfo.name,
+        password:  userInfo.password,
+        email:  userInfo.email,
+        age:  userInfo.age,
+        creditCard:  userInfo.creditCard,
+        genre:  userInfo.genre,
+        Account_expiration_date:  userInfo.Account_expiration_date,
+        is_admin : 0
       })
-  });
-  let data = await response.json();
-  console.log(data)
-  if (data) {
-      window.location.reload() // goes to login
+    });
+    let data = await response.json();
+    console.log(data)
+    if (data) {
+      setCurrentView("logIn")// goes to login
       return;
-  } else {
+    } else {
       alert('There is a problem with one of the fields, Please refill and try again.')
       navigate('/')
+    }
   }
-}
 
-  const handleChangePassword = e => {
+  const handleChange = (e) => {
     e.preventDefault();
-    setPassword(e.target.value);
-  }
-  const handleChangeUsername = e => {
-    e.preventDefault();
-    setUsername(e.target.value);
-  }
-  const handleChangeEmail = e => {
-    e.preventDefault();
-    setEmail(e.target.value);
-  }
-  const handleChangeAge = e => {
-    e.preventDefault();
-    setAge(e.target.value);
-  }
-  const handleChangeCreditCard = e => {
-    e.preventDefault();
-    setCreditCard(e.target.value);
-  }
-  const handleChangeSubscriptionTime = e => {
-    e.preventDefault();
-    setSubscribeTime(e.target.value);
-  }
-  const handleChangeJaner = e => {
-    e.preventDefault();
-    setJaner(e.target.value);
-  }
+    console.log(e.target.id);
+    setUserInfo({
+      ...userInfo,
+      [e.target.id]: e.target.value
+    })
+  };
 
 
   const CurrentView = () => {
@@ -106,27 +89,27 @@ async function register(e) {
               <legend>Create Account</legend>
               <ul>
                 <li>
-                  <input onChange={handleChangeUsername} type="text" id="username" placeholder="Please insert Username" required />
+                  <input onChange={handleChange} type="text" id="name" placeholder="Please insert name" required />
                 </li>
                 <li>
-                  <input onChange={handleChangeEmail} type="email" id="email" placeholder='Please insert your Email' required />
+                  <input onChange={handleChange} type="email" id="email" placeholder='Please insert your Email' required />
                 </li>
                 <li>
-                  <input onChange={handleChangePassword} type="password" id="password" placeholder="Please insert a Password" required />
+                  <input onChange={handleChange} type="password" id="password" placeholder="Please insert a Password" required />
                 </li>
                 <li>
-                  <input onChange={handleChangeAge} type="number" id="age" placeholder="Please insert your Age" required />
+                  <input onChange={handleChange} type="number" id="age" placeholder="Please insert your Age" required />
                 </li>
                 <li>
-                  <input onChange={handleChangeJaner} type="text" id="janer" placeholder="Please insert your favourite janer" required />
+                  <input onChange={handleChange} type="text" id="genre" placeholder="Please insert your favourite genre" required />
                 </li>
                 <li>
-                  <input onChange={handleChangeCreditCard} type="number" id="creditCard" placeholder="Please insert your credit card" required />
+                  <input onChange={handleChange} type="number" id="creditCard" placeholder="Please insert your credit card" required />
                 </li>
                 <li>
-                  <label for="subscirbeTime">Choose your subscription time</label>
+                  <label for="Account_expiration_date">Choose your subscription time</label>
                   <br />
-                  <input onChange={handleChangeSubscriptionTime} type="time" id="subscirbeTime" required />
+                  <input onChange={handleChange} type="date" id="Account_expiration_date" required />
                 </li>
               </ul>
             </form>
@@ -143,10 +126,10 @@ async function register(e) {
               <legend>Log In</legend>
               <ul>
                 <li>
-                  <input onChange={handleChangeUsername} type="text" id="username" placeholder="Please insert Username" required />
+                  <input onChange={handleChange} type="text" id="name" placeholder="Please insert name" required />
                 </li>
                 <li>
-                  <input onChange={handleChangePassword} type="password" id="password" placeholder="Please insert a Password" required />
+                  <input onChange={handleChange} type="password" id="password" placeholder="Please insert a Password" required />
                 </li>
                 <li>
                   <i />
@@ -171,12 +154,12 @@ async function register(e) {
                 </li>
                 <li>
                   <label for="email">Email:</label>
-                  <input type="email" id="email" required />
+                  <input onChange={handleChange} type="email" id="email" required />
                 </li>
               </ul>
             </form>
             <button>Send Reset Link</button>
-            <button type="button" onClick={() => this.changeView("logIn")}>Go Back</button>
+            <button type="button" onClick={() => setCurrentView("logIn")}>Go Back</button>
           </form>
         )
       default:
