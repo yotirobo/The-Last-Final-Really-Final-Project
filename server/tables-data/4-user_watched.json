@@ -4,6 +4,6 @@
         {"col_name": "user_id", "type": "INT" , "AUTO_INCREMENT": false , "PRIMARY_KEY": true, "UNIQUE":false, "NOT_NULL":true, "FOREIGN_KEY": "user"},
         {"col_name": "media_id", "type": "INT" , "AUTO_INCREMENT": false , "PRIMARY_KEY": true, "UNIQUE":false, "NOT_NULL":true, "FOREIGN_KEY": "media"},
         {"col_name": "liked", "type": "BOOLEAN" , "AUTO_INCREMENT": false , "PRIMARY_KEY": false, "UNIQUE": false, "NOT_NULL": true, "FOREIGN_KEY": false},
-        {"col_name": "rate", "type": "INT" , "AUTO_INCREMENT": false , "PRIMARY_KEY": false, "UNIQUE": false, "NOT_NULL": true, "FOREIGN_KEY": false}
+        {"col_name": "rate", "type": "INT" , "AUTO_INCREMENT": false , "PRIMARY_KEY": false, "UNIQUE": false, "NOT_NULL": false, "FOREIGN_KEY": false}
     ]
 }
