@@ -20,13 +20,7 @@ let sdarotRouter = require('./routes/sdarot');
 let sratimRouter = require('./routes/sratim');
 let videoPlayerRouter = require('./routes/videoPlayer');
 let trackingRouter = require('./routes/tracking');
-    //mysql routers:
-    let userRouter = require('./routes/mySQL_DB/user');
-    let passwordRouter = require('./routes/mySQL_DB/password');
-    let mediaRouter = require('./routes/mySQL_DB/media');
-    let user_watchedRouter = require('./routes/mySQL_DB/user_watched');
-    let postRouter = require('./routes/mySQL_DB/post');
-    let actionRouter = require('./routes/mySQL_DB/action');
+let firstInsertRouter = require('./routes/mySQL_DB_first_Insert.js');
 
 let app = express();
 
@@ -51,12 +45,6 @@ app.use(function (req, res, next) {
 // app.use('/sratim', sratimRouter);
 // app.use('/videoPlayer', videoPlayerRouter);
 // app.use('/tracking', trackingRouter);
-    // use mysql routers:
-    // app.use('/user', userRouter);
-    // app.use('/password', passwordRouter);
-    // app.use('/media', mediaRouter);
-    // app.use('/user_watched', user_watchedRouter);
-    // app.use('/post', postRouter);
-    // app.use('/action', actionRouter);
+app.use('/firstInsert', firstInsertRouter); //mySQL
 
 module.exports = app;
