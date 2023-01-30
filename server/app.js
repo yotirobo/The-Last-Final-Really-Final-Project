@@ -38,7 +38,7 @@ app.use(function (req, res, next) {
 
 // use routers:
 app.use('/users', usersRouter);
-// app.use('/profile', profileRouter);
+app.use('/profile', profileRouter);
 // app.use('/sdarot', sdarotRouter);
 // app.use('/sratim', sratimRouter);
 // app.use('/videoPlayer', videoPlayerRouter);
