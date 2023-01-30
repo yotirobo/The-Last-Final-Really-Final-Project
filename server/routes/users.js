@@ -3,7 +3,6 @@ var router = express.Router();
 var fs = require("fs");
 const sql = require('mysql');
 
-//connection with database todos
 const con = sql.createConnection({
   host: 'localhost',
   user: 'root',
@@ -11,12 +10,12 @@ const con = sql.createConnection({
   database: "final_project_DB"
 })
 
-/* GET users listing. */
-
 router.get('/', (req , res )=> {
   let sql = `select * from user where name = '${req.query.name}'`
   con.query(sql, (err, result) => {
     if (err) { console.log(err); return; }
+    console.log(sql);
+    console.log(result);
     res.send(result)
   })
 })

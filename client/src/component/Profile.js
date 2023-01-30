@@ -4,6 +4,9 @@ import NavComponent from "./navComponent";
 
 function ShowInfo() {
     const [id, setId] = useState(JSON.parse(localStorage.getItem("userOnline")).user_id);
+    console.log("🚀 ~ file: Profile.js:7 ~ ShowInfo ~ id", id)
+    const currentUser = JSON.parse(localStorage.getItem("userOnline"));
+    console.log("🚀 ~ file: Profile.js:8 ~ ShowInfo ~ currentUser", currentUser)
     const [draw, setDraw] = useState([]);
     const [userData, setUserData] = useState({});
     const [ifData, setIfData] = useState(false)

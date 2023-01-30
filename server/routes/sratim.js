@@ -10,7 +10,6 @@
 //   database: "final_project_DB"
 // });
 
-
 // //
 // // function sendData(req, res, what, were, tableNameOp) {
 // //     let tableName = tableNameOp ? tableNameOp : req.path.split("/")[1].slice(0, -1);
