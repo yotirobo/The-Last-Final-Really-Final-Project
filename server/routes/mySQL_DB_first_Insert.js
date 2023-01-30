@@ -25,7 +25,7 @@ function insertIntoTable(table_name, table_columns, req, res) {
 };
 
 router.post('/media', function (req, res, next) {
-    insertIntoTable('media', 'title, src, deleted, publish_Date, likes, genre, rate, movie_or_TVShow', req , res)
+    insertIntoTable('media', 'title, video_src, photo_src, deleted, publish_Date, likes, genre, rate, movie_or_TVShow', req , res)
 });
 
 router.post('/user', function (req, res, next) {

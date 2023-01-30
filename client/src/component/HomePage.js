@@ -31,9 +31,9 @@ function HomePage() {
     let data = await response.json();
     console.log(data);
     if (data) {
-      const respone = await fetch(`http://localhost:5000/users?user=${ userInfo.name}`)
+      const respone = await fetch(`http://localhost:5000/users?user=${userInfo.name}`)
       const data = await respone.json();
-      localStorage.setItem('userOnline', JSON.stringify({ name:  userInfo.name, user_id: data.user_id }));
+      localStorage.setItem('userOnline', JSON.stringify({name: userInfo.name, user_id: data.user_id }));
       navigate("/profile")
     } else {
       navigate('/')

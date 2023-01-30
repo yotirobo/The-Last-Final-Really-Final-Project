@@ -9,7 +9,7 @@ function ShowInfo() {
     const [userData, setUserData] = useState({});
     const [ifData, setIfData] = useState(false)
     const [profileInfo , setProfileInfo ] = useState({
-        username: "",
+        name: "",
         password: "",
         email: "",
         age: Number,
@@ -40,7 +40,7 @@ function ShowInfo() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                username: profileInfo.username,
+                name: profileInfo.name,
                 password: profileInfo.password,
                 email: profileInfo.email,
                 age: profileInfo.age,
