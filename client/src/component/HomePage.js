@@ -17,7 +17,8 @@ function HomePage() {
   })
 
   async function logInCheck(e) {
-    e.preventDefault()
+    e.preventDefault();
+    console.log(userInfo.name);
     const response = await fetch('http://localhost:5000/users', {
       method: 'POST',
       headers: {
@@ -31,12 +32,12 @@ function HomePage() {
     let data = await response.json();
     console.log(data);
     if (data) {
-      const respone = await fetch(`http://localhost:5000/users?user=${userInfo.name}`)
-      const data = await respone.json();
-      localStorage.setItem('userOnline', JSON.stringify({name: userInfo.name, user_id: data.user_id }));
+      const responseForUserID =  await fetch(`http://localhost:5000/users/?user=${userInfo.name}`)
+      console.log(responseForUserID);
+      const data = await responseForUserID.json();
+      localStorage.setItem('userOnline', JSON.stringify({name:userInfo.name, user_id: responseForUserID.user_id}));
       navigate("/profile")
     } else {
-      navigate('/')
       alert('name or password are incorrect')
     }
   }
@@ -137,7 +138,7 @@ function HomePage() {
                 </li>
               </ul>
             </form>
-            <button oncClick={logInCheck}>Login</button>
+            <button onClick={logInCheck}>Login</button>
             <button type="button" onClick={() => setCurrentView("signUp")}>Create an Account</button>
           </form>
         )

@@ -1,29 +1,30 @@
-import e from "cors";
-import { number } from "joi";
+import { date } from "joi";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import NavComponent from "./navComponent";
 
 function ShowInfo() {
     const [id, setId] = useState(JSON.parse(localStorage.getItem("userOnline")).user_id);
     const [draw, setDraw] = useState([]);
     const [userData, setUserData] = useState({});
     const [ifData, setIfData] = useState(false)
-    const [profileInfo , setProfileInfo ] = useState({
+    const [flag, setFlag] = useState(false)
+    const [profileInfo, setProfileInfo] = useState({
         name: "",
         password: "",
         email: "",
         age: Number,
         creditCard: Number,
-        janer: "",
+        genre: "",
         subscirbeTime: Number
     })
+
     const handleChange = (e) => {
         e.preventDefault();
         setProfileInfo({
-          ...profileInfo,
-          [e.target.name]: e.target.value
-    })
-};
+            ...profileInfo,
+            [e.target.name]: e.target.value
+        })
+    };
     useEffect(() => {
         myInfo();
     }, []) // at the first time the page loads
@@ -45,8 +46,8 @@ function ShowInfo() {
                 email: profileInfo.email,
                 age: profileInfo.age,
                 creditCard: profileInfo.creditCard,
-                janer: profileInfo.janer,
-                subscirbeTimem: profileInfo.subscirbeTime
+                genre: profileInfo.genre,
+                subscirbeTime: profileInfo.subscirbeTime
             })
         });
         let data = await response.json();
@@ -72,26 +73,64 @@ function ShowInfo() {
         setUserData(data[0])
         setDraw(tempArray)
     }
+    const submitButton = () => {
+        setFlag(!flag)
+        edit();
+    }
 
+    const getType = (e) => {
+        switch (e.target) {
+            case "name":
+                return 'text';
+                break;
+            case 'email':
+                return 'email';
+                break;
+            case 'age':
+                return 'number';
+                break;
+            case 'creditCard':
+                return 'number';
+                break;
+            case 'genre':
+                return 'text';
+                break;
+            case 'subscirbeTime':
+                return 'date';
+                break;
+            default:
+            // code block
+        }
+
+    }
 
     return (
         <>
-            <Link to="/sdarot">Sdarot</Link>
-            <br/>
-            <Link to="/sratim">Sratim</Link>
-            <br/>
-            <Link to="/rofile">Your profile</Link>
-            <br/>
-            <Link to="/">LogOut</Link>
-            <h1>Hello Im your Profile</h1>
-            <h3>And this is your info, you can see and </h3>
+            <NavComponent />
+            <h1>Hello {profileInfo.name} Im your Profile</h1>
+            <h3>And this is your info, you can see and edit it! </h3>
             {draw?.map((item) => {
-                if (item.title === "password") {
+                if (item.title === "is_admin") {
+                    return "";
+                }
+                if (item.title === "user_id") {
+                    return "";
+                }
+                if (item.title === "Account_expiration_date") {
                     return "";
                 } else {
-                    return <p onChange={handleChange} key={Math.random()}><b>{item.title}: </b>{item.body}, <a onClick={edit}>edit</a></p>;
+                    return (
+                        <p onChange={handleChange} key={Math.random()}>
+                            <b>{item.title}:</b>{item.body}
+                            <input style={flag ? { display: "block" } : { display: "none" }} onChange={handleChange} type='text' id={item.title} required />
+                        </p>);
                 }
             })}
+            <button onClick={() => setFlag(!flag)}>edit</button>
+            <button style={flag ? { display: "block" } : { display: "none" }} onClick={submitButton}>Change!</button>
+            <h2>Would you like to extend your subscription?</h2>
+            <input onChange={handleChange} type='date' id={'Account_expiration_date'} required />
+            <button onClick={edit}>extend!</button>
         </>
     )
 }
