@@ -24,6 +24,8 @@ function insertIntoTable(table_name, table_columns, req, res) {
     res.send(`insret to ${table_name} worked!`);
 };
 
+exports.insertIntoTable = insertIntoTable;
+
 router.post('/media', function (req, res, next) {
     insertIntoTable('media', 'title, video_src, photo_src, deleted, publish_Date, likes, genre, rate, movie_or_TVShow', req , res)
 });

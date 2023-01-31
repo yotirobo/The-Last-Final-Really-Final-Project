@@ -9,7 +9,6 @@ import Admin from './component/Admin';
 // import VideoPlayer from './component/VideoPlayer';
 // import Tracking from './component/Tracking';
 
-
 function App() {
   const [cookieExist, setCookieExist] = useState(false);
   console.log("cookieExist", cookieExist)

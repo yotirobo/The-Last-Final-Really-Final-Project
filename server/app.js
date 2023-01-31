@@ -20,6 +20,7 @@ let sratimRouter = require('./routes/sratim');
 let videoPlayerRouter = require('./routes/videoPlayer');
 let trackingRouter = require('./routes/tracking');
 let firstInsertRouter = require('./routes/mySQL_DB_first_Insert.js');
+let adminRouter = require('./routes/admin');
 
 let app = express();
 
@@ -44,5 +45,6 @@ app.use('/TVshows', sdarotRouter);
 // app.use('/videoPlayer', videoPlayerRouter);
 // app.use('/tracking', trackingRouter);
 app.use('/firstInsert', firstInsertRouter); //mySQL
+app.use('/admin', adminRouter);
 
 module.exports = app;
