@@ -2,10 +2,12 @@ import React from "react";
 import { useState } from "react"
 import { useNavigate } from "react-router-dom";
 
-function HomePage() {
+function HomePage(props) {
+  console.log('props.setCookieExist', props.setCookieExist)
+  const setCookieExist = props.setCookieExist
   const navigate = useNavigate();
   const [currentView, setCurrentView] = useState('signUp')
-  const[userInfo, setUserInfo] = useState({
+  const [userInfo, setUserInfo] = useState({
     name: '',
     password: '',
     email: '',
@@ -23,17 +25,19 @@ function HomePage() {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ 
+      body: JSON.stringify({
         name: userInfo.name,
-        password:  userInfo.password,
+        password: userInfo.password,
       })
     });
     let data = await response.json();
     console.log(data);
     if (data) {
-      const responseForUserID =  await fetch(`http://localhost:5000/users/user?name=${userInfo.name}`)
+      const responseForUserID = await fetch(`http://localhost:5000/users/user?name=${userInfo.name}`)
       const data = await responseForUserID.json();
       localStorage.setItem('userOnline', JSON.stringify({ name: userInfo.name, user_id:data[0].user_id, is_admin:data[0].is_admin}));
+      setCookie(userInfo.name, 1)
+      setCookieExist(true)
       navigate("/profile")
     } else {
       alert('name or password are incorrect')
@@ -48,13 +52,13 @@ function HomePage() {
       },
       body: JSON.stringify({
         name: userInfo.name,
-        password:  userInfo.password,
-        email:  userInfo.email,
-        age:  userInfo.age,
-        creditCard:  userInfo.creditCard,
-        genre:  userInfo.genre,
-        Account_expiration_date:  userInfo.Account_expiration_date,
-        is_admin : 0
+        password: userInfo.password,
+        email: userInfo.email,
+        age: userInfo.age,
+        creditCard: userInfo.creditCard,
+        genre: userInfo.genre,
+        Account_expiration_date: userInfo.Account_expiration_date,
+        is_admin: 0
       })
     });
     let data = await response.json();
@@ -100,7 +104,14 @@ function HomePage() {
                   <input onChange={handleChange} type="number" id="age" placeholder="Please insert your Age" required />
                 </li>
                 <li>
-                  <input onChange={handleChange} type="text" id="genre" placeholder="Please insert your favourite genre" required />
+                  <label for="genre">Choose your favorot:</label>
+                  <select name="genre" id="genre">
+                    <option value="Animated">Animated</option>
+                    <option value="Comedy">Comedy</option>
+                    <option value="Action">Action</option>
+                    <option value="Romance">Romance</option>
+                    <option value="Drama">Drama</option>
+                  </select>
                 </li>
                 <li>
                   <input onChange={handleChange} type="number" id="creditCard" placeholder="Please insert your credit card" required />
@@ -158,20 +169,57 @@ function HomePage() {
               </ul>
             </form>
             <button>Send Reset Link</button>
-            <button type="button" onClick={() => setCurrentView("logIn")}>Go Back</button>
+            <button type="button" onClick={() => {
+              setCurrentView("logIn")
+              setCookie('username', userInfo.name, 1)
+            }}>Go Back</button>
           </form>
         )
       default:
         break
     }
   }
+  function setCookie(cvalue, exdays) {
+    const d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    let expires = "expires=" + d.toUTCString();
+    document.cookie = `username = ${cvalue};  expires =${exdays}  ;path=http://localhost:3000;`
+  }
 
+  function getCookie(cname) {
+    let name = cname + "=";
+    let ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
 
+  function checkCookie() {
+    let user = getCookie("username");
+    if (user != "") {
+      alert("Welcome again " + user);
+    } else {
+      user = prompt("Please enter your name:", "");
+      if (user != "" && user != null) {
+        setCookie("username", user, 365);
+      }
+    }
+  }
 
   return (
-    <section id="entry-page">
-      {CurrentView()}
-    </section>
+    <>
+      <section id="entry-page">
+        {CurrentView()}
+      </section>
+
+    </>
   )
 
 }
