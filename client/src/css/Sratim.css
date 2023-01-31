@@ -1,0 +1,91 @@
+.movies-h1 {
+    font-size: 6vw;
+    margin-bottom: 10px;
+}
+
+.movies-h2 {
+    text-align: left;
+    margin-left: 20px;
+}
+
+.images-ul {
+    display: inline-flex;
+    width: 100%;
+    flex-wrap: wrap;
+    /* justify-content: center; */
+    gap: 2px;
+    padding-left: 2px;
+}
+
+.img-container {
+    background-color: black;
+    padding: 1px;
+    padding-bottom: 0px;
+    margin: 6px;
+    position: relative;
+    text-align: center;
+    border-radius: 7%;
+    box-shadow: 3px 4px black;
+    color: white;
+}
+
+.img-container img {
+    border-radius: 8%;
+    width: 18vw;
+    margin: 2px;
+}
+
+.img-title-bottom-left {
+    text-align: left;
+    position: absolute;
+    color: rgb(250, 220, 182);
+    font-size: 1.4vw;
+    font-weight: bold;
+    bottom: 1.73vw;
+    left: 1.4vw;
+}
+
+.img-info-bottom-p {
+    text-align: left;
+    position: absolute;
+    color: rgb(250, 220, 182);
+    font-size: 1.3vw;
+    font-weight: bold;
+    bottom: 1.4vw;
+    left: 1.4vw;
+    display: none;
+    /* -webkit-text-stroke: 1px black; */
+}
+
+.img-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.movie-img:hover~.img-info-bottom-p,
+.img-info-bottom-p:hover,
+.img-title-bottom-left:hover+.img-info-bottom-p {
+    display: block;
+}
+
+.movie-img:hover~.img-title-bottom-left,
+.img-title-bottom-left:hover,
+.img-title-bottom-left:has(+ .img-info-bottom-p:hover) {
+    display: none;
+}
+
+/* .to-button{
+    margin-top: 10px;
+    margin-left: 20px;
+    width: 140px;
+    display: inline;
+    background-color: rgb(104, 234, 189);
+    color: black;
+}
+
+#to-div{
+   display: flex;
+  align-items: center;  
+} */

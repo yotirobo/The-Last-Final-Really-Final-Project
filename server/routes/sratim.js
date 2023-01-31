@@ -50,7 +50,7 @@ var con = mysql.createConnection({
 // })
 
 router.get(`/favorite_genre_movies`, function (req, res) {
-    let sql = `SELECT m.title, m.photo_src, m.publish_Date, m.likes, m.rate from media m JOIN user u WHERE m.genre = u.favorite_genre AND u.user_id = ${req.query.user_id} AND m.movie_or_TVShow="movie" AND m.deleted=0`;
+    let sql = `SELECT m.title, m.photo_src, m.publish_Date, m.likes, m.rate,  m.genre from media m JOIN user u WHERE m.genre = u.favorite_genre AND u.user_id = ${req.query.user_id} AND m.movie_or_TVShow="movie" AND m.deleted=0`;
     con.query(sql, function (err, result) {
         let newDate = moment.utc(result[0].publish_Date).format('MM/DD/YY');
         console.log('converted date', newDate); // 09/23/21 
