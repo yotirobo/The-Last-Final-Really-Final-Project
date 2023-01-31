@@ -5,9 +5,9 @@ function NavComponent() {
 
     return (
         <>
-            <Link to="/sdarot">Sdarot</Link>
+            <Link to="/movies">Movies</Link>
             <br />
-            <Link to="/sratim">Sratim</Link>
+            <Link to="/TVshows">TV Shows</Link>
             <br />
             <Link to="/profile">Your profile</Link>
             <br />

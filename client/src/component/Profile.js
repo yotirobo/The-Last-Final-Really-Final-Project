@@ -3,10 +3,7 @@ import React, { useEffect, useState } from "react";
 import NavComponent from "./navComponent";
 
 function ShowInfo() {
-    const [id, setId] = useState(JSON.parse(localStorage.getItem("userOnline")).user_id);
-    console.log("🚀 ~ file: Profile.js:7 ~ ShowInfo ~ id", id)
     const currentUser = JSON.parse(localStorage.getItem("userOnline"));
-    console.log("🚀 ~ file: Profile.js:8 ~ ShowInfo ~ currentUser", currentUser)
     const [draw, setDraw] = useState([]);
     const [userData, setUserData] = useState({});
     const [ifData, setIfData] = useState(false)
@@ -38,7 +35,7 @@ function ShowInfo() {
 
     const edit = async (e) => {
         e.preventDefault()
-        const response = await fetch(`http://localhost:5000/profile?user_id=${id}`, {
+        const response = await fetch(`http://localhost:5000/profile?user_id=${currentUser.user_id}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -66,7 +63,7 @@ function ShowInfo() {
     }
 
     const myInfo = async () => {
-        const respone = await fetch(`http://localhost:5000/profile?user_id=${id}`)
+        const respone = await fetch(`http://localhost:5000/profile?user_id=${currentUser.user_id}`)
         const data = await respone.json();
         setIfData(true);
         let tempArray = [];
