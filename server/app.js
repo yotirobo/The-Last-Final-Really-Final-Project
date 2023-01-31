@@ -40,7 +40,7 @@ app.use(function (req, res, next) {
 app.use('/users', usersRouter);
 app.use('/profile', profileRouter);
 app.use('/movies', sratimRouter);
-// app.use('/TVshows', sdarotRouter);
+app.use('/TVshows', sdarotRouter);
 // app.use('/videoPlayer', videoPlayerRouter);
 // app.use('/tracking', trackingRouter);
 app.use('/firstInsert', firstInsertRouter); //mySQL

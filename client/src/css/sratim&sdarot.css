@@ -1,9 +1,9 @@
-.movies-h1 {
+.media-h1 {
     font-size: 6vw;
     margin-bottom: 10px;
 }
 
-.movies-h2 {
+.media-h2 {
     text-align: left;
     margin-left: 20px;
 }
@@ -41,7 +41,7 @@
     color: rgb(250, 220, 182);
     font-size: 1.4vw;
     font-weight: bold;
-    bottom: 1.73vw;
+    bottom: 1.3vw;
     left: 1.4vw;
 }
 
@@ -51,7 +51,7 @@
     color: rgb(250, 220, 182);
     font-size: 1.3vw;
     font-weight: bold;
-    bottom: 1.4vw;
+    bottom: 0.5vw;
     left: 1.4vw;
     display: none;
     /* -webkit-text-stroke: 1px black; */

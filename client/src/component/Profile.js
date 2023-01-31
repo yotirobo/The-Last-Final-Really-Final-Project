@@ -1,4 +1,3 @@
-import { date } from "joi";
 import React, { useEffect, useState } from "react";
 import NavComponent from "./navComponent";
 import '../css/profile.css';
