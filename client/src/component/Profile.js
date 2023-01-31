@@ -4,7 +4,7 @@ import NavComponent from "./navComponent";
 import '../css/profile.css';
 
 function ShowInfo() {
-    const currentUser = JSON.parse(localStorage.getItem("userOnline"));
+    const [currentUser, setCurrentUser ] =useState(JSON.parse(localStorage.getItem("userOnline")));
     const [draw, setDraw] = useState([]);
     const [userData, setUserData] = useState({});
     const [ifData, setIfData] = useState(false)
@@ -50,8 +50,6 @@ function ShowInfo() {
         setUserData(data[0])
         setDraw(tempArray)
         setProfileInfo(tempObj)
-        console.log(profileInfo)
-        console.log(profileInfo.favorite_genre)
     }
     const submitButton = () => {
         setFlag(!flag)
@@ -96,13 +94,15 @@ function ShowInfo() {
                 genre: profileInfo.favorite_genre,
                 Account_expiration_date: profileInfo.Account_expiration_date
             })
-            
         });
         let data = await response.json();
         console.log(data);
         if (data) {
             alert('Updated!')
             window.location.reload();
+            console.log(data);
+            localStorage.setItem("userOnline", JSON.stringify({name: profileInfo.name}));
+            setCurrentUser(localStorage.getItem("userOnline"));
             return;
         } else {
             alert('Something went wrong please try again')
@@ -113,7 +113,7 @@ function ShowInfo() {
             <NavComponent />
             <h1>Hello {currentUser.name} Im your Profile</h1>
             <h3>And this is your info, you can see and edit it! </h3>
-            {draw?.map((item) => {
+            {draw?.map((item, index) => {
                 if (item.title === "is_admin") {
                     return "";
                 }
@@ -124,7 +124,7 @@ function ShowInfo() {
                     return "";
                 } else {
                     return (
-                        <form>
+                        <form key={index}>
                             <p>
                                 <b>{item.title}:</b>{item.body}
                                 <input name={`${item.title}`} value={profileInfo[item.title]} 
