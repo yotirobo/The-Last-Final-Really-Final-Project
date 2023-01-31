@@ -1,6 +1,7 @@
 import { date } from "joi";
 import React, { useEffect, useState } from "react";
 import NavComponent from "./navComponent";
+import '../css/profile.css';
 
 function ShowInfo() {
     const currentUser = JSON.parse(localStorage.getItem("userOnline"));
@@ -20,9 +21,6 @@ function ShowInfo() {
 
     const handleChange = (e) => {
         e.preventDefault();
-        console.log(e.target.name);
-        console.log(e.target.value);
-
         setProfileInfo({
             ...profileInfo,
             [e.target.name]: e.target.value
@@ -36,34 +34,6 @@ function ShowInfo() {
         myInfo();
     }, [ifData]) // if the data didnt fetch then try again...
 
-    const edit = async (e) => {
-        e.preventDefault()
-        const response = await fetch(`http://localhost:5000/profile?user_id=${currentUser.user_id}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                name: profileInfo.name,
-                password: profileInfo.password,
-                email: profileInfo.email,
-                age: profileInfo.age,
-                creditCard: profileInfo.creditCard,
-                genre: profileInfo.genre,
-                Account_expiration_date: profileInfo.Account_expiration_date
-            })
-        });
-        let data = await response.json();
-        console.log(data)
-        if (data) {
-            alert('Updated!')
-            window.location.reload();
-            return;
-        } else {
-            alert('Something went wrong please try again')
-            window.location.reload();
-        }
-    }
 
     const myInfo = async () => {
         const respone = await fetch(`http://localhost:5000/profile?user_id=${currentUser.user_id}`)
@@ -71,15 +41,22 @@ function ShowInfo() {
         setIfData(true);
         let tempArray = [];
         for (let item in userData) {
-            tempArray.push({ title: item, body: userData[item], type: ()=> getType(item)})
+            tempArray.push({ title: item, body: userData[item], type: getType(item) })
+        }
+        let tempObj = {};
+        for (let item in userData) {
+            tempObj[item] = userData[item]
         }
         setUserData(data[0])
         setDraw(tempArray)
-        console.log(tempArray)
+        setProfileInfo(tempObj)
+        console.log(profileInfo)
+        console.log(profileInfo.favorite_genre)
     }
     const submitButton = () => {
         setFlag(!flag)
         edit();
+        console.log('yy');
     }
 
     const getType = (item) => {
@@ -101,11 +78,40 @@ function ShowInfo() {
         }
 
     }
-
+    
+    const edit = async () => {
+        console.log('got it ');
+        console.log(profileInfo.favorite_genre)
+        const response = await fetch(`http://localhost:5000/profile/edit?user_id=${currentUser.user_id}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: profileInfo.name,
+                password: profileInfo.password,
+                email: profileInfo.email,
+                age: profileInfo.age,
+                creditCard: profileInfo.creditCard,
+                genre: profileInfo.favorite_genre,
+                Account_expiration_date: profileInfo.Account_expiration_date
+            })
+            
+        });
+        let data = await response.json();
+        console.log(data);
+        if (data) {
+            alert('Updated!')
+            window.location.reload();
+            return;
+        } else {
+            alert('Something went wrong please try again')
+        }
+    }
     return (
         <>
             <NavComponent />
-            <h1>Hello {profileInfo.name} Im your Profile</h1>
+            <h1>Hello {currentUser.name} Im your Profile</h1>
             <h3>And this is your info, you can see and edit it! </h3>
             {draw?.map((item) => {
                 if (item.title === "is_admin") {
@@ -121,7 +127,9 @@ function ShowInfo() {
                         <form>
                             <p>
                                 <b>{item.title}:</b>{item.body}
-                                <input name={`${item.title}`} value={profileInfo[item.title]} style={flag ? { display: "block" } : { display: "none" }} onChange={handleChange} type={item.type} id={item.title} required />
+                                <input name={`${item.title}`} value={profileInfo[item.title]} 
+                                style={flag ? { display: "block" } : { display: "none" }} 
+                                onChange={handleChange} type={item.type} id={item.title} required />
                             </p>
                         </form>);
                 }

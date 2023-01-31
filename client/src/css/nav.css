@@ -1,0 +1,19 @@
+.link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: 25%;
+    background-color: orange;
+  }
+  
+  a {
+    color: #333;
+    text-decoration: none;
+    padding: 1rem;
+  }
+  
+  a:hover {
+    background-color: orangered;
+  }
+  
+  
