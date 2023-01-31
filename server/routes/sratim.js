@@ -16,7 +16,7 @@ router.get(`/favorite_genre_movies`, function (req, res) {
         res.send(JSON.stringify(result));
     });
 })
-//
+
 router.get(`/unwatched_movies`, function (req, res) {
     let sql = `SELECT DISTINCT m.title, m.photo_src, m.video_src, m.publish_Date, m.likes, m.rate, m.genre FROM media m LEFT JOIN user_watched uw ON m.media_id = uw.media_id AND uw.user_id = ${req.query.user_id} WHERE m.movie_or_TVShow = "movie" AND m.deleted = 0 AND uw.media_id IS NULL`;
     con.query(sql, function (err, result) {
