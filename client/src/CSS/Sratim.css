@@ -5,6 +5,7 @@ ul {
     flex-wrap: wrap;
     /* justify-content: center; */
     gap: 2px;
+    padding-left: 2px;
 }
 
 .img-container {
