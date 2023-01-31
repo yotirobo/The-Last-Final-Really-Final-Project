@@ -3,6 +3,7 @@ var router = express.Router();
 var fs = require("fs");
 const sql = require('mysql');
 
+//connection with database todos
 const con = sql.createConnection({
   host: 'localhost',
   user: 'root',

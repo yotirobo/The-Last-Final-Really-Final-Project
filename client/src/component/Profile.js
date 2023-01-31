@@ -4,8 +4,6 @@ import NavComponent from "./navComponent";
 import '../css/profile.css';
 
 function ShowInfo() {
-    const nameForH1 = JSON.parse(localStorage.getItem("userOnline")).name
-    const [id, setId] = useState(JSON.parse(localStorage.getItem("userOnline")).user_id);
     const currentUser = JSON.parse(localStorage.getItem("userOnline"));
     const [draw, setDraw] = useState([]);
     const [userData, setUserData] = useState({});
@@ -38,7 +36,7 @@ function ShowInfo() {
 
 
     const myInfo = async () => {
-        const respone = await fetch(`http://localhost:5000/profile?user_id=${id}`)
+        const respone = await fetch(`http://localhost:5000/profile?user_id=${currentUser.user_id}`)
         const data = await respone.json();
         setIfData(true);
         let tempArray = [];
@@ -84,7 +82,7 @@ function ShowInfo() {
     const edit = async () => {
         console.log('got it ');
         console.log(profileInfo.favorite_genre)
-        const response = await fetch(`http://localhost:5000/profile/edit?user_id=${id}`, {
+        const response = await fetch(`http://localhost:5000/profile/edit?user_id=${currentUser.user_id}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -113,7 +111,7 @@ function ShowInfo() {
     return (
         <>
             <NavComponent />
-            <h1>Hello {nameForH1} Im your Profile</h1>
+            <h1>Hello {currentUser.name} Im your Profile</h1>
             <h3>And this is your info, you can see and edit it! </h3>
             {draw?.map((item) => {
                 if (item.title === "is_admin") {
