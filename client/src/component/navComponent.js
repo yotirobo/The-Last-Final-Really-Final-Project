@@ -1,18 +1,17 @@
 import React from "react";
 import { useNavigate , Link } from "react-router-dom";
+import "../css/nav.css"
 
 function NavComponent() {
 
     return (
-        <>
+        < div className="link">
+            <img src="../photos/logo2"/>
             <Link to="/sdarot">Sdarot</Link>
-            <br />
             <Link to="/sratim">Sratim</Link>
-            <br />
             <Link to="/profile">Your profile</Link>
-            <br />
             <Link to="/">LogOut</Link>
-        </>
+        </div>
     )
 }
 export default NavComponent;
