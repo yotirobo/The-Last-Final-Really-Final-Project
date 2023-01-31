@@ -54,7 +54,6 @@ router.get(`/favorite_genre_movies`, function (req, res) {
     con.query(sql, function (err, result) {
         let newDate = moment.utc(result[0].publish_Date).format('MM/DD/YY');
         console.log('converted date', newDate); // 09/23/21 
-
         if (err) { res.send(err.sqlMessage); return; };
         res.send(JSON.stringify(result));
     });
