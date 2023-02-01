@@ -101,6 +101,7 @@ function VideoPlayer() {
                     <p></p>
                     <h4>{item.title}</h4>
                     <p>{item.body}</p>
+                    {userData.name === item.name || userData.is_admin === 1 ? <button /*onClick={deletePost}*/>delete me</button> : null}
                 </div>
             )
         }))

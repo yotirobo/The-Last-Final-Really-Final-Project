@@ -13,13 +13,24 @@ video {
     margin: 1%;
     border-radius: 10%;
     width: 22vw;
-    height: 10vw;
     padding: 0.5rem;
 }
 
 .video-posts-container h4 {
     margin-top: 0;
     margin-left: 0.4vw;
+}
+
+.video-posts-container button {
+    /* margin-left: 65%;
+    margin-right: 10%; */
+    border-radius: 10%;
+}
+
+.video-posts-container button:hover {
+    font-weight: bold;
+    background-color: #ff0000a1;
+    color: white;
 }
 
 .form-buttons {
