@@ -11,6 +11,7 @@ const Tracking = () => {
                 const data = await response.json();
                 console.log("aaa", data);
                 setTrackingData(data);
+                console.log(data);
             } catch (error) {
                 console.error('Error fetching tracking data: ', error);
             }
@@ -23,16 +24,19 @@ const Tracking = () => {
         setSelected(value);
     };
 
-    const createTrackingList = list => {
+    const createTrackingList = (list) => {
         let sortedList;
         switch (selected) {
             case "byId":
-                sortedList = list.sort((a, b) => a.user_id - b.user_id);
-                break;
+                sortedList = list.sort((a, b) => {
+                    if (a.action_type > b.action_type) return -1;
+                    if (a.action_type < b.action_type) return 1;
+                    return 0;
+                });
             case 'byAB':
                 sortedList = list.sort((a, b) => {
-                    if (a.description < b.description) return -1;
-                    if (a.description > b.description) return 1;
+                    if (a.name < b.name) return -1;
+                    if (a.name > b.name) return 1;
                     return 0;
                 });
                 break;
