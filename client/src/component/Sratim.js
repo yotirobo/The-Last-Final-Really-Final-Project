@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import NavComponent from './navComponent';
 import '../css/Sratim.css'
 
@@ -8,6 +9,8 @@ function Sratim() {
     const [favoriteGenreMoviesList, setFavoriteGenreMoviesList] = useState([]); //to render
     const [favoriteGenreMovies, setFavoriteGenreMovies] = useState([]); //from fetch request
     let moment = require('moment');
+    let navigate = useNavigate();
+
 
     useEffect(() => {
         getFavoriteGenreMovies();
@@ -31,10 +34,10 @@ function Sratim() {
     function making_favorite_genre_movies_list() {
         setFavoriteGenreMoviesList(favoriteGenreMovies && favoriteGenreMovies?.map((item, index) => {
             return (
-                <div key={index} className="img-container">
+                <div key={index} className="img-container" onClick={() => navigate(`/videoPlayer?video_src=${item.video_src.split('./Media/Movies/')[1]}}`)}>
                     {setFavoriteGenre(item.genre)}
                     <img className="movie-img" src={`http://localhost:5000/movies/photo/?photo_src=${item.photo_src.split('./Media/Movies-Photos/')[1]}`} />
-                    <div class="img-title-bottom-left">{item.title}</div>
+                    <div class="img-titl-bottom-left">{item.title}</div>
                     <p className='img-info-bottom-p'>📆 {moment.utc(item.publish_Date).format('DD/MM/YY')} 👍🏼 {item.likes} ⭐ {item.rate}</p>
                     {/* <div class="img-center">Centered</div> */}
                 </div>
@@ -45,7 +48,7 @@ function Sratim() {
     return (
         <>
             <NavComponent />
-            <div>
+            <div>e
                 <h1 className='movies-h1'>Movies</h1><br />
                 <h2 className='movies-h2'>Movies in your favorite genre: {favoriteGenre}</h2>
                 <ul className='images-ul'>{favoriteGenreMoviesList}</ul>
