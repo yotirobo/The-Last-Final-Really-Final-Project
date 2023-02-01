@@ -1,6 +1,7 @@
 import e from 'cors';
 import React, { useEffect, useState } from 'react';
 import NavComponent from './navComponent';
+import SearchBar from './search';
 
 function ShowInfo() {
     const userData = JSON.parse(localStorage.getItem("userOnline"));
@@ -35,15 +36,6 @@ function ShowInfo() {
         // fetchInsertMedia();
     }, [insertMedia])
 
-    // this how the fetch request should to look like
-    function fetchInsertMedia() {
-        fetch('http://localhost:5000/admin/media', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ data: media })
-        })
-    }
-
     //function that gets traking information:
     async function getTrakingData() {
         try {
@@ -64,6 +56,7 @@ function ShowInfo() {
             )
         }))
     }
+
     const handleAddMovie = (e) => {
         e.preventDefault();
 
@@ -99,26 +92,7 @@ function ShowInfo() {
             alert('movie not added please try again');
         }
     };
-    // async function getMoviesData() {
-    //     try {
-    //         const response = await fetch(`http://localhost:5000/admin/media`);
-    //         const data = await response.json();
-    //         setMovieData({
-    //             title: data.title,
-    //             video_src: data.video_src,
-    //             photo_src: data.photo_src,
-    //             deleted: data.deleted,
-    //             publish_date: data.publish_date,
-    //             likes: data.likes,
-    //             genre: data.genre,
-    //             rate: data.rate,
-    //             movie_or_TVShow: data.movie_or_TVShow
-    //         })
-    //     }
-    //     catch (error) {
-    //         console.log('error: ', error)
-    //     }
-    // }
+
 
     const submitMovieButton = () => {
         setAddFlag(!addFlag)
@@ -192,6 +166,7 @@ function ShowInfo() {
                 {/* and it will download video and img and put it in the folders required */}
                 <hr />
                 <p>remove movie/tv show form:</p>
+                <SearchBar />        
                 <hr />
                 <p>traking:</p>
                 <ul>{trakingDataList}</ul>

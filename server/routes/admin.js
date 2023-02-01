@@ -21,6 +21,14 @@ router.post('/media/addMovie', function (req, res, next) {
     })
 });
 
+router.get(`/allMedia`, function (req, res) {
+    let sql = `SELECT title from media`;
+    con.query(sql, function (err, result) {
+        if (err) { res.send(err.sqlMessage); return; };
+        res.send(JSON.stringify(result));
+    });
+})
+
 //traking:
 router.get(`/traking`, function (req, res) {
     let sql = `SELECT a.action_type, a.description, a.time, u.name FROM action a JOIN user u ON (a.user_id=u.user_id)`;
@@ -29,5 +37,14 @@ router.get(`/traking`, function (req, res) {
         res.send(JSON.stringify(result));
     });
 })
+
+router.post('/media/deleteMovie', function (req, res, next) {
+    console.log('server')
+    const sql = `UPDATE media SET deleted = 1 WHERE title ='${req.query.movieName}'`;
+    con.query(sql, function (err, result) {
+        if (err) {console.log(err); res.send(err); return; };
+        res.send(JSON.stringify(result));
+    })
+});
 
 module.exports = router;
