@@ -16,6 +16,7 @@ function Sratim() {
 
     let moment = require('moment');
 
+
     useEffect(() => {
         getFavoriteGenreMovies();
     }, [])

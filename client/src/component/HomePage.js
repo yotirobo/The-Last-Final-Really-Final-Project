@@ -3,7 +3,6 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom";
 
 function HomePage(props) {
-  console.log('props.setCookieExist', props.setCookieExist)
   const setCookieExist = props.setCookieExist
   const navigate = useNavigate();
   const [currentView, setCurrentView] = useState('signUp')
@@ -19,7 +18,6 @@ function HomePage(props) {
 
   async function logInCheck(e) {
     e.preventDefault();
-    console.log(userInfo.name);
     const response = await fetch('http://localhost:5000/users', {
       method: 'POST',
       headers: {
@@ -31,7 +29,6 @@ function HomePage(props) {
       })
     });
     let data = await response.json();
-    console.log(data);
     if (data) {
       const responseForUserID = await fetch(`http://localhost:5000/users/user?name=${userInfo.name}`)
       const data = await responseForUserID.json();
@@ -62,7 +59,6 @@ function HomePage(props) {
       })
     });
     let data = await response.json();
-    console.log(data)
     if (data) {
       setCurrentView("logIn")// goes to login
       return;
@@ -74,13 +70,11 @@ function HomePage(props) {
 
   const handleChange = (e) => {
     e.preventDefault();
-    console.log(e.target.id);
     setUserInfo({
       ...userInfo,
       [e.target.id]: e.target.value
     })
   };
-
 
   const CurrentView = () => {
     switch (currentView) {
@@ -88,7 +82,6 @@ function HomePage(props) {
         return (
           <form>
             <h2>Sign Up!</h2>
-            <form>
               <legend>Create Account</legend>
               <ul>
                 <li>
@@ -104,7 +97,7 @@ function HomePage(props) {
                   <input onChange={handleChange} type="number" id="age" placeholder="Please insert your Age" required />
                 </li>
                 <li>
-                  <label for="genre">Choose your favorot:</label>
+                  <label htmlFor="genre">Choose your favorot:</label>
                   <select name="genre" id="genre">
                     <option value="Animated">Animated</option>
                     <option value="Comedy">Comedy</option>
@@ -117,12 +110,11 @@ function HomePage(props) {
                   <input onChange={handleChange} type="number" id="creditCard" placeholder="Please insert your credit card" required />
                 </li>
                 <li>
-                  <label for="Account_expiration_date">Choose your subscription time</label>
+                  <label htmlFor="Account_expiration_date">Choose your subscription time</label>
                   <br />
                   <input onChange={handleChange} type="date" id="Account_expiration_date" required />
                 </li>
               </ul>
-            </form>
             <button onClick={register}>Submit</button>
             <button type="button" onClick={() => setCurrentView("logIn")}>Have an Account?</button>
           </form>
@@ -132,7 +124,6 @@ function HomePage(props) {
         return (
           <form>
             <h2>Welcome Back!</h2>
-            <form>
               <legend>Log In</legend>
               <ul>
                 <li>
@@ -147,7 +138,6 @@ function HomePage(props) {
                   <a onClick={() => setCurrentView("PWReset")} href="#">Forgot Password?</a>
                 </li>
               </ul>
-            </form>
             <button onClick={logInCheck}>Login</button>
             <button type="button" onClick={() => setCurrentView("signUp")}>Create an Account</button>
           </form>
@@ -157,18 +147,16 @@ function HomePage(props) {
         return (
           <form>
             <h2>Reset Password</h2>
-            <form>
               <legend>Password Reset</legend>
               <ul>
                 <li>
                   <em>A reset link will be sent to your inbox!</em>
                 </li>
                 <li>
-                  <label for="email">Email:</label>
+                  <label htmlFor="email">Email:</label>
                   <input onChange={handleChange} type="email" id="email" required />
                 </li>
               </ul>
-            </form>
             <button>Send Reset Link</button>
             <button type="button" onClick={() => {
               setCurrentView("logIn")
