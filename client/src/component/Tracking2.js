@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 const Tracking = () => {
     const [selected, setSelected] = useState("byId");
     const [trackingData, setTrackingData] = useState([]);
+    let moment = require('moment');
 
     useEffect(() => {
         const getTrackingData = async () => {
@@ -17,7 +18,7 @@ const Tracking = () => {
             }
         };
         getTrackingData();
-    }, []);
+    }, [selected]);
 
     const handleSelect = event => {
         const { value } = event.target;
@@ -54,11 +55,11 @@ const Tracking = () => {
                 sortedList = list;
                 break;
         }
-        return sortedList.map((obj, index) => (
+        return sortedList.map((arr, index) => (
             <div key={index}>
-                {console.log("a",obj)}
+                {console.log("a",arr)}
                 <h5>Task number {index + 1}:</h5>
-                <p>{obj.name} {obj.description}</p>
+                <p>{arr.name} {arr.description} at {moment.utc(arr.time).format('DD/MM/YY HH:mm:ss')}</p>
             </div>
         ));
     };
