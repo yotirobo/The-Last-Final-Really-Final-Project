@@ -1,13 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
+let con = require('../tables-constructor');
 
-var con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "z10mz10m",
-    database: "final_project_DB"
-});
 
 router.get(`/favorite_genre_TVshows`, function (req, res) {
     let sql = `SELECT * FROM media m JOIN user u WHERE m.genre = u.favorite_genre AND u.user_id = ${req.query.user_id} AND m.movie_or_TVShow="TVShow" AND m.deleted=0`;

@@ -23,6 +23,7 @@ var con = mysql.createConnection({
     password: "z10mz10m",
     database: "final_project_DB"
 });
+module.exports = con;
 
 // function that delete all tables:
 let deleteTables = (dir) => {

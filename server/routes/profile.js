@@ -3,13 +3,8 @@ var router = express.Router();
 var fs = require("fs");
 const sql = require('mysql');
 const moment = require('moment');
+let con = require('../tables-constructor');
 
-const con = sql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'z10mz10m',
-  database: "final_project_DB"
-})
 
 router.get('/', (req , res )=> {
   let sql = `select * from user where user_id = '${req.query.user_id}'`

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import NavComponent from './navComponent';
 import '../css/sratim&sdarot.css'
 let fromSratim = require('./Sratim');
+let moment = require('moment');
 
 function Sdarot() {
     const userData = JSON.parse(localStorage.getItem("userOnline"));
@@ -15,7 +16,6 @@ function Sdarot() {
     const [watchedTVshowsList, setWatchedTVshowsList] = useState([]); //to render watched TVshows list
     const navigate = useNavigate();
 
-    let moment = require('moment');
 
     useEffect(() => {
         getFavoriteGenreTVshows();
@@ -57,7 +57,6 @@ function Sdarot() {
         setFavoriteGenreTVshowsList(favoriteGenreTVshows && favoriteGenreTVshows?.map((item, index) => {
             return (
                 <div key={index} className="img-container" onClick={() => navigate(`/videoPlayer?media_id=${item.media_id}`)}>
-                    {console.log("🚀 ~ file: Sdarot.js:54 ~ setFavoriteGenreTVshowsList ~ item.photo_src", item.photo_src)}
                     {setFavoriteGenre(item.genre)}
                     <img className="movie-img" src={`http://localhost:5000/TVshows/photo/?photo_src=${item.photo_src.split('./Media/TV-Shows-photos/')[1]}`} />
                     <div className="img-title-bottom-left">{item.title}</div>
