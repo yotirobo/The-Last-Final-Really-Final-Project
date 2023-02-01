@@ -29,7 +29,7 @@ router.get('/watched', (req, res) => {
                 if (err) throw err;
             });
         };
-        res.send(JSON.stringify({rate: result[0].rate, liked: result[0].liked}));
+        if(result.length) res.send(JSON.stringify({rate: result[0].rate, liked: result[0].liked}));
     });
 });
 

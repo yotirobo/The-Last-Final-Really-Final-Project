@@ -39,8 +39,10 @@ function VideoPlayer() {
             making_video_information_div();
             making_video_title();
         }
-        setStarFlag(userChoise.rate)
-        userChoise.liked === 0 ? setLikeFlag(false) : setLikeFlag(true);
+        if (userChoise.length){
+            setStarFlag(userChoise.rate)
+            userChoise.liked === 0 ? setLikeFlag(false) : setLikeFlag(true);
+        }
         making_posts_div();
     }, [videoInfo, videoPosts])
 
