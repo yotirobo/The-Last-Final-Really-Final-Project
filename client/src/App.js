@@ -6,7 +6,7 @@ import Profile from './component/Profile';
 import Sratim from './component/Sratim';
 import Sdarot from './component/Sdarot';
 import Admin from './component/Admin';
-// import VideoPlayer from './component/VideoPlayer';
+import VideoPlayer from './component/VideoPlayer';
 // import Tracking from './component/Tracking';
 
 function App() {
@@ -22,7 +22,7 @@ function App() {
           <Route exact path="/movies" element={<Sratim />} />
           <Route exact path="/TVshows" element={<Sdarot />} />
           <Route exact path="/admin" element={<Admin />} />
-          {/* <Route exact path="/videoplayer" element={<VideoPlayer />} /> */}
+          <Route exact path="/videoPlayer" element={<VideoPlayer />} />
           {/* <Route exact path="/tracking" element={<Tracking />} /> */}
         </Routes>
       </>

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import NavComponent from './navComponent';
 import '../css/sratim&sdarot.css'
+let fromSratim = require('./Sratim');
 
 function Sdarot() {
     const userData = JSON.parse(localStorage.getItem("userOnline"));
@@ -11,9 +13,10 @@ function Sdarot() {
     const [unwatchedTVshowsList, setUnwatchedTVshowsList] = useState([]); //to render unwatched TVshows list
     const [watchedTVshows, setWatchedTVshows] = useState([]); //for fetch request that get watched TVshows
     const [watchedTVshowsList, setWatchedTVshowsList] = useState([]); //to render watched TVshows list
+    const navigate = useNavigate();
 
     let moment = require('moment');
-    
+
     useEffect(() => {
         getFavoriteGenreTVshows();
     }, [])
@@ -22,33 +25,39 @@ function Sdarot() {
         making_favorite_genre_TVshows_list();
         getUnwatchedTVshows();
     }, [favoriteGenreTVshows])
-    
+
     useEffect(() => {
         making_unwatched_TVshows_list();
         getWatchedTVshows();
     }, [unwatchedTVshows])
-    
+
     useEffect(() => {
         making_watched_TVshows_list();
     }, [watchedTVshows])
 
-    //function that gets user favorite TVshows:
-    async function getFavoriteGenreTVshows() {
+    //function that gets data from DB:
+    async function getDataFromDB(fetchUrl, setDataFromFetch) {
         try {
-            const response = await fetch(`http://localhost:5000/TVshows/favorite_genre_TVshows/?user_id=${userData.user_id}`);
+            const response = await fetch(fetchUrl);
             const data = await response.json();
-            setFavoriteGenreTVshows(data)
+            setDataFromFetch(data)
         }
         catch (error) {
             console.log('error: ', error)
         }
     }
+
+    //function that gets user favorite TVshows:
+    function getFavoriteGenreTVshows() {
+        getDataFromDB(`http://localhost:5000/TVshows/favorite_genre_TVshows/?user_id=${userData.user_id}`, setFavoriteGenreTVshows)
+    }
+
     //function that prepare the div that will render in user favorite TVshows:
     function making_favorite_genre_TVshows_list() {
         setFavoriteGenreTVshowsList(favoriteGenreTVshows && favoriteGenreTVshows?.map((item, index) => {
             return (
-                <div key={index} className="img-container">
-                {console.log("🚀 ~ file: Sdarot.js:54 ~ setFavoriteGenreTVshowsList ~ item.photo_src", item.photo_src)}
+                <div key={index} className="img-container" onClick={() => navigate(`/videoPlayer?media_id=${item.media_id}`)}>
+                    {console.log("🚀 ~ file: Sdarot.js:54 ~ setFavoriteGenreTVshowsList ~ item.photo_src", item.photo_src)}
                     {setFavoriteGenre(item.genre)}
                     <img className="movie-img" src={`http://localhost:5000/TVshows/photo/?photo_src=${item.photo_src.split('./Media/TV-Shows-photos/')[1]}`} />
                     <div className="img-title-bottom-left">{item.title}</div>
@@ -60,22 +69,15 @@ function Sdarot() {
     }
 
     //function that gets user unwatched TVshows:
-    async function getUnwatchedTVshows() {
-        try {
-            const response = await fetch(`http://localhost:5000/TVshows/unwatched_TVshows/?user_id=${userData.user_id}`);
-            const data = await response.json();
-            setUnwatchedTVshows(data)
-        }
-        catch (error) {
-            console.log('error: ', error)
-        }
+    function getUnwatchedTVshows() {
+        getDataFromDB(`http://localhost:5000/TVshows/unwatched_TVshows/?user_id=${userData.user_id}`, setUnwatchedTVshows)
     }
 
     //function that prepare the div that will render in user unwatched TVshows:
     function making_unwatched_TVshows_list() {
         setUnwatchedTVshowsList(unwatchedTVshows && unwatchedTVshows?.map((item, index) => {
             return (
-                <div key={index} className="img-container">
+                <div key={index} className="img-container" onClick={() => navigate(`/videoPlayer?media_id=${item.media_id}`)}>
                     <img className="movie-img" src={`http://localhost:5000/TVshows/photo/?photo_src=${item.photo_src.split('./Media/TV-Shows-photos/')[1]}`} />
                     <div className="img-title-bottom-left">{item.title}</div>
                     <p className='img-info-bottom-p'> {item.genre} <br /> 📆 {moment.utc(item.publish_Date).format('DD/MM/YY')} 👍🏼 {item.likes} ⭐ {item.rate}</p>
@@ -86,22 +88,15 @@ function Sdarot() {
     }
 
     //function that gets user watched TVshows:
-    async function getWatchedTVshows() {
-        try {
-            const response = await fetch(`http://localhost:5000/TVshows/watched_TVshows/?user_id=${userData.user_id}`);
-            const data = await response.json();
-            setWatchedTVshows(data)
-        }
-        catch (error) {
-            console.log('error: ', error)
-        }
+    function getWatchedTVshows() {
+        getDataFromDB(`http://localhost:5000/TVshows/watched_TVshows/?user_id=${userData.user_id}`, setWatchedTVshows)
     }
 
     //function that prepare the div that will render in user watched TVshows:
     function making_watched_TVshows_list() {
         setWatchedTVshowsList(watchedTVshows && watchedTVshows?.map((item, index) => {
             return (
-                <div key={index} className="img-container">
+                <div key={index} className="img-container" onClick={() => navigate(`/videoPlayer?media_id=${item.media_id}`)}>
                     <img className="movie-img" src={`http://localhost:5000/TVshows/photo/?photo_src=${item.photo_src.split('./Media/TV-Shows-photos/')[1]}`} />
                     <div className="img-title-bottom-left">{item.title}</div>
                     <p className='img-info-bottom-p'> {item.genre} <br /> 📆 {moment.utc(item.publish_Date).format('DD/MM/YY')} 👍🏼 {item.likes} ⭐ {item.rate}</p>

@@ -13,7 +13,7 @@ function NavComponent() {
             <br />
             <Link to="/profile">Your profile</Link>
             <br/>
-            {currentUser.is_admin === 1 ? <Link to="/admin">Admin</Link> : null}
+            {currentUser.is_admin === 1 ? <><Link to="/admin">Admin</Link> <br/> </>: null}      
             <Link to="/">LogOut</Link>
         </div>
     )

@@ -143,6 +143,7 @@ function HomePage(props) {
                 </li>
                 <li>
                   <i />
+                  <br/>
                   <a onClick={() => setCurrentView("PWReset")} href="#">Forgot Password?</a>
                 </li>
               </ul>

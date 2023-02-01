@@ -18,7 +18,7 @@ let profileRouter = require('./routes/profile');
 let sdarotRouter = require('./routes/sdarot');
 let sratimRouter = require('./routes/sratim');
 let videoPlayerRouter = require('./routes/videoPlayer');
-let trackingRouter = require('./routes/tracking');
+// let trackingRouter = require('./routes/tracking');
 let firstInsertRouter = require('./routes/mySQL_DB_first_Insert.js');
 let adminRouter = require('./routes/admin');
 
@@ -42,7 +42,7 @@ app.use('/users', usersRouter);
 app.use('/profile', profileRouter);
 app.use('/movies', sratimRouter);
 app.use('/TVshows', sdarotRouter);
-// app.use('/videoPlayer', videoPlayerRouter);
+app.use('/videoPlayer', videoPlayerRouter);
 // app.use('/tracking', trackingRouter);
 app.use('/firstInsert', firstInsertRouter); //mySQL
 app.use('/admin', adminRouter);
