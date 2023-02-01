@@ -101,7 +101,7 @@ let media = [['Strange World', './Media/Movies/Strange World.webm', './Media/Mov
 ['Thief', './Media/TV-Shows/Thief.webm', './Media/TV-Shows-photos/Thief.png', false, '2022-04-28', 91, 'Animated', 3.3, 'TVShow'],
 ['Morning!', './Media/TV-Shows/Morning!.webm', './Media/TV-Shows-photos/Morning!.png', false, '2022-04-28', 91, 'Animated', 3.3, 'TVShow'],
 ['This is it?', './Media/TV-Shows/This is it?.webm', './Media/TV-Shows-photos/This is it?.png', false, '2017-02-07', 72, 'Animated', 1.6, 'TVShow'],
-['Stop motion,', './Media/TV-Shows/Stop motion.webm', './Media/TV-Shows-photos/Stop motion.png', false, '2017-07-19', 39, 'Animated', 7.8, 'TVShow'],
+['Stop motion', './Media/TV-Shows/Stop motion.webm', './Media/TV-Shows-photos/Stop motion.png', false, '2017-07-19', 39, 'Animated', 7.8, 'TVShow'],
 ['Funny', './Media/TV-Shows/Funny.webm', './Media/TV-Shows-photos/Funny.png', false, '2016-04-30', 95, 'Animated', 8.1, 'TVShow'],
 ['Toast', './Media/TV-Shows/Toast.webm', './Media/TV-Shows-photos/Toast.png', false, '2017-12-31', 82, 'Comedy', 7.8, 'TVShow'],
 ['The Elevator', './Media/TV-Shows/The Elevator.webm', './Media/TV-Shows-photos/The Elevator.png', false, '2014-03-22', 13, 'Comedy', 1.4, 'TVShow'],

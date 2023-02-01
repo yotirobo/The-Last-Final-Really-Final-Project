@@ -35,9 +35,8 @@ function HomePage(props) {
     if (data) {
       const responseForUserID = await fetch(`http://localhost:5000/users/user?name=${userInfo.name}`)
       const data = await responseForUserID.json();
-      localStorage.setItem('userOnline', JSON.stringify({ name: userInfo.name, user_id: data[0].user_id }));
+      localStorage.setItem('userOnline', JSON.stringify({ name: userInfo.name, user_id:data[0].user_id, is_admin:data[0].is_admin}));
       setCookie(userInfo.name, 1)
-      console.log(typeof setCookieExist, 'reut')
       setCookieExist(true)
       navigate("/profile")
     } else {
@@ -144,6 +143,7 @@ function HomePage(props) {
                 </li>
                 <li>
                   <i />
+                  <br/>
                   <a onClick={() => setCurrentView("PWReset")} href="#">Forgot Password?</a>
                 </li>
               </ul>
