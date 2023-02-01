@@ -28,6 +28,18 @@ function VideoPlayer() {
         }
     }, [videoInfo])
 
+    //function that gets data from DB:
+    async function getDataFromDB(fetchUrl, setDataFromFetch) {
+        try {
+            const response = await fetch(fetchUrl);
+            const data = await response.json();
+            setDataFromFetch(data)
+        }
+        catch (error) {
+            console.log('error: ', error)
+        }
+    }
+
     //function that prepare the video that will render:
     function making_video_render() {
         setVideo(
@@ -36,15 +48,8 @@ function VideoPlayer() {
     }
 
     //function that gets the video information:
-    async function getVideoInfo() {
-        try {
-            const response = await fetch(`http://localhost:5000/videoPlayer/videoInfo/?media_id=${media_id}`);
-            const data = await response.json();
-            setVideoInfo(data)
-        }
-        catch (error) {
-            console.log('error: ', error)
-        }
+    function getVideoInfo() {
+        getDataFromDB(`http://localhost:5000/videoPlayer/videoInfo/?media_id=${media_id}`, setVideoInfo)
     }
 
     //function that prepare the video information that will render:
