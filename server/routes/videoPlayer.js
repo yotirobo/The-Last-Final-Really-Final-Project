@@ -86,7 +86,6 @@ router.get('/deletePost', (req, res) => {
 });
 
 router.get('/like', (req, res) => {
-    console.log(req.query.liked);
     //set as liked in user_watched table
     var sql = `UPDATE user_watched SET liked=${req.query.liked} WHERE media_id = ${req.query.media_id} AND user_id = ${req.query.user_id}`;
     con.query(sql, (err, result) => {
@@ -94,11 +93,24 @@ router.get('/like', (req, res) => {
     })
     //insert into action table
     sql = `INSERT INTO action (action_type, description, time, user_id) VALUES ?`;
-    var values = [req.query.liked? 'likes media': 'remove like', req.query.liked? `likes media id ${req.query.media_id}` : `remove like on media id ${req.query.media_id}`, `${moment.utc(new Date()).format('YYYY-MM-DD HH:mm:ss')}`, req.query.user_id];
-    console.log("values :", values);
-    // con.query(sql, [[values]], function (err, result) {
-    //     if (err) throw err;
-    // });
+    var values = [req.query.liked === "true"?  'likes media': 'remove like', req.query.liked === "true"? `likes media id ${req.query.media_id}` : `remove like on media id ${req.query.media_id}`, `${moment.utc(new Date()).format('YYYY-MM-DD HH:mm:ss')}`, req.query.user_id];
+    con.query(sql, [[values]], function (err, result) {
+        if (err) throw err;
+    });
+});
+
+router.get('/rate', (req, res) => {
+    //set as liked in user_watched table
+    var sql = `UPDATE user_watched SET rate=${req.query.rate} WHERE media_id = ${req.query.media_id} AND user_id = ${req.query.user_id}`;
+    con.query(sql, (err, result) => {
+        if (err) { console.log(err); return; }
+    })
+    //insert into action table
+    sql = `INSERT INTO action (action_type, description, time, user_id) VALUES ?`;
+    var values = ['rated media' , `rated media id ${req.query.media_id} with an ${req.query.rate} star rating`, `${moment.utc(new Date()).format('YYYY-MM-DD HH:mm:ss')}`, req.query.user_id];
+    con.query(sql, [[values]], function (err, result) {
+        if (err) throw err;
+    });
 });
 
 module.exports = router;

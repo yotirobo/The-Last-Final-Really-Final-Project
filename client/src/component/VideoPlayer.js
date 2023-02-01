@@ -45,6 +45,10 @@ function VideoPlayer() {
         setReRenderPosts(PostStatus)
     }, [PostStatus])
 
+    useEffect(() => {
+        rateVideo(starFlag)
+    }, [starFlag])
+
     //function that gets data from DB:
     async function getAndSendData(fetchUrl, setDataFromFetch) {
         try {
@@ -59,7 +63,7 @@ function VideoPlayer() {
 
     //function that set the video as watched in the database:
     const setAsWatched = () => {
-        if(media_id.length){
+        if (media_id.length) {
             getAndSendData(`http://localhost:5000/videoPlayer/watched/?media_id=${media_id}&&user_id=${userData.user_id}`)
         }
     };
@@ -133,6 +137,11 @@ function VideoPlayer() {
         getAndSendData(`http://localhost:5000/videoPlayer/like/?liked=${!likeFlag}&&user_id=${userData.user_id}&&media_id=${media_id}`)
     }
 
+    //function that send to server rate information
+    const rateVideo = () => {
+        getAndSendData(`http://localhost:5000/videoPlayer/rate/?rate=${starFlag}&&user_id=${userData.user_id}&&media_id=${media_id}`)
+    }
+
     return (
         <>
             <NavComponent />
@@ -146,6 +155,11 @@ function VideoPlayer() {
                 <span onClick={() => setStarFlag(3)}>{starFlag > 2 ? "⭐" : "⚝"}</span>
                 <span onClick={() => setStarFlag(4)}>{starFlag > 3 ? "⭐" : "⚝"}</span>
                 <span onClick={() => setStarFlag(5)}>{starFlag > 4 ? "⭐" : "⚝"}</span>
+                <span onClick={() => setStarFlag(6)}>{starFlag > 5 ? "⭐" : "⚝"}</span>
+                <span onClick={() => setStarFlag(7)}>{starFlag > 6 ? "⭐" : "⚝"}</span>
+                <span onClick={() => setStarFlag(8)}>{starFlag > 7 ? "⭐" : "⚝"}</span>
+                <span onClick={() => setStarFlag(9)}>{starFlag > 8 ? "⭐" : "⚝"}</span>
+                <span onClick={() => setStarFlag(10)}>{starFlag > 9 ? "⭐" : "⚝"}</span>
 
                 {videoInfoDiv}
                 <h4>posts:</h4>
