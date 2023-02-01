@@ -9,6 +9,7 @@ const Tracking = () => {
             try {
                 const response = await fetch(`http://localhost:5000/admin/traking`);
                 const data = await response.json();
+                console.log("aaa", data);
                 setTrackingData(data);
             } catch (error) {
                 console.error('Error fetching tracking data: ', error);
@@ -51,8 +52,9 @@ const Tracking = () => {
         }
         return sortedList.map((obj, index) => (
             <div key={index}>
+                {console.log("a",obj)}
                 <h5>Task number {index + 1}:</h5>
-                <p>{obj.title}</p>
+                <p>{obj.name} {obj.description}</p>
             </div>
         ));
     };
@@ -64,6 +66,7 @@ const Tracking = () => {
             <div className='select-div'>
                 <label>Sort by: </label>
                 <select onChange={handleSelect}>
+                    <option value="byActionType">By Action Type</option>
                     <option value="byId">By Id of Action</option>
                     <option value="byTime">By the time it happened</option>
                     <option value="byAB">In Alphabetical order</option>
