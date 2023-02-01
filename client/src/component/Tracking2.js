@@ -3,12 +3,14 @@ import React, { useEffect, useState } from 'react';
 const Tracking = () => {
     const [selected, setSelected] = useState("byId");
     const [trackingData, setTrackingData] = useState([]);
+    let moment = require('moment');
 
     useEffect(() => {
         const getTrackingData = async () => {
             try {
                 const response = await fetch(`http://localhost:5000/admin/traking`);
                 const data = await response.json();
+                console.log("aaa", data);
                 setTrackingData(data);
                 console.log(data);
             } catch (error) {
@@ -16,7 +18,7 @@ const Tracking = () => {
             }
         };
         getTrackingData();
-    }, []);
+    }, [selected]);
 
     const handleSelect = event => {
         const { value } = event.target;
@@ -55,10 +57,11 @@ const Tracking = () => {
                 sortedList = list;
                 break;
         }
-        return sortedList.map((obj, index) => (
+        return sortedList.map((arr, index) => (
             <div key={index}>
+                {console.log("a",arr)}
                 <h5>Task number {index + 1}:</h5>
-                <p>{obj.title}</p>
+                <p>{arr.name} {arr.description} at {moment.utc(arr.time).format('DD/MM/YY HH:mm:ss')}</p>
             </div>
         ));
     };
@@ -70,6 +73,7 @@ const Tracking = () => {
             <div className='select-div'>
                 <label>Sort by: </label>
                 <select onChange={handleSelect}>
+                    <option value="byActionType">By Action Type</option>
                     <option value="byId">By Id of Action</option>
                     <option value="byTime">By the time it happened</option>
                     <option value="byAB">In Alphabetical order</option>

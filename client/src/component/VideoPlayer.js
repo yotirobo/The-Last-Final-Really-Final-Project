@@ -14,6 +14,9 @@ function VideoPlayer() {
     const [showAddPostFormFlag, setShowAddPostFormFlag] = useState(false); //
     const [PostStatus, setPostStatus] = useState("");
     const [reRenderPosts, setReRenderPosts] = useState("");//rerender posts after sending new post to server
+    const [likeFlag, setLikeFlag] = useState(false);
+    const [starFlag, setStarFlag] = useState(0);
+
     const addPostTitleRef = useRef();
     const addPostBodyRef = useRef();
 
@@ -24,7 +27,7 @@ function VideoPlayer() {
     }, [])
 
     useEffect(() => {
-        console.log("a");
+        setAsWatched();
         making_video_render();
         getVideoInfo();
         getVideoPosts();
@@ -35,9 +38,7 @@ function VideoPlayer() {
             making_video_information_div();
             making_video_title();
         }
-        if (videoPosts.length) {
-            making_posts_div();
-        }
+        making_posts_div();
     }, [videoInfo, videoPosts])
 
     useEffect(() => {
@@ -45,16 +46,23 @@ function VideoPlayer() {
     }, [PostStatus])
 
     //function that gets data from DB:
-    async function getDataFromDB(fetchUrl, setDataFromFetch) {
+    async function getAndSendData(fetchUrl, setDataFromFetch) {
         try {
             const response = await fetch(fetchUrl);
             const data = await response.json();
-            setDataFromFetch(data)
+            setDataFromFetch?.(data)
         }
         catch (error) {
             console.log('error: ', error)
         }
     }
+
+    //function that set the video as watched in the database:
+    const setAsWatched = () => {
+        if(media_id.length){
+            getAndSendData(`http://localhost:5000/videoPlayer/watched/?media_id=${media_id}&&user_id=${userData.user_id}`)
+        }
+    };
 
     //function that prepare the video that will render:
     function making_video_render() {
@@ -65,7 +73,7 @@ function VideoPlayer() {
 
     //function that gets the video information:
     function getVideoInfo() {
-        getDataFromDB(`http://localhost:5000/videoPlayer/videoInfo/?media_id=${media_id}`, setVideoInfo)
+        getAndSendData(`http://localhost:5000/videoPlayer/videoInfo/?media_id=${media_id}`, setVideoInfo)
     }
 
     //function that prepare the video information that will render:
@@ -89,12 +97,12 @@ function VideoPlayer() {
 
     //function that gets the video posts:
     function getVideoPosts() {
-        getDataFromDB(`http://localhost:5000/videoPlayer/videoPosts/?media_id=${media_id}`, setVideoPosts)
+        getAndSendData(`http://localhost:5000/videoPlayer/videoPosts/?media_id=${media_id}`, setVideoPosts)
     }
 
     //function that sets post as deleted:
     const deletePost = (post_id, user_id) => {
-        getDataFromDB(`http://localhost:5000/videoPlayer/deletePost/?post_id=${post_id}&&user_id=${user_id}`, setPostStatus)
+        getAndSendData(`http://localhost:5000/videoPlayer/deletePost/?post_id=${post_id}&&user_id=${user_id}`, setPostStatus)
     }
 
     //function that prepare the video posts that will render:
@@ -116,7 +124,13 @@ function VideoPlayer() {
     const insretPost = (e) => {
         e.preventDefault();
         setShowAddPostFormFlag(false)
-        getDataFromDB(`http://localhost:5000/videoPlayer/addPost/?user_id=${userData.user_id}&&media_id=${media_id}&&title=${addPostTitleRef.current.value}&&body=${addPostBodyRef.current.value}`, setPostStatus)
+        getAndSendData(`http://localhost:5000/videoPlayer/addPost/?user_id=${userData.user_id}&&media_id=${media_id}&&title=${addPostTitleRef.current.value}&&body=${addPostBodyRef.current.value}`, setPostStatus)
+    }
+
+    //function that set likeFlag & send to server like information
+    const likeVideo = () => {
+        setLikeFlag(!likeFlag);
+        getAndSendData(`http://localhost:5000/videoPlayer/like/?liked=${!likeFlag}&&user_id=${userData.user_id}&&media_id=${media_id}`)
     }
 
     return (
@@ -126,6 +140,13 @@ function VideoPlayer() {
                 {videoTitle}
                 <br />
                 {video}
+                <p>did you like this video? like and rate us! &nbsp; <span onClick={likeVideo}>{likeFlag ? "👍🏾 Thank You For Liking this video!" : "👍🏻"}</span> </p>
+                <span onClick={() => setStarFlag(1)}>{starFlag > 0 ? "⭐" : "⚝"}</span>
+                <span onClick={() => setStarFlag(2)}>{starFlag > 1 ? "⭐" : "⚝"}</span>
+                <span onClick={() => setStarFlag(3)}>{starFlag > 2 ? "⭐" : "⚝"}</span>
+                <span onClick={() => setStarFlag(4)}>{starFlag > 3 ? "⭐" : "⚝"}</span>
+                <span onClick={() => setStarFlag(5)}>{starFlag > 4 ? "⭐" : "⚝"}</span>
+
                 {videoInfoDiv}
                 <h4>posts:</h4>
                 {videoPostsDiv.length ? videoPostsDiv : "there is no posts on this video yet, be the first person posting!"}
@@ -137,7 +158,7 @@ function VideoPlayer() {
                     <input type="text" ref={addPostBodyRef} placeholder='enter here post content' />
                     <button className='form-buttons' type="submit">add</button>
                 </form>
-                {PostStatus.length && !showAddPostFormFlag ? PostStatus.split('0')[0] : null}
+                {PostStatus.length && !showAddPostFormFlag ? PostStatus.split('aaa')[0] : null}
                 {/* {PostStatus.length? setTimeout(setPostStatus(""),1000) : null} */}
             </div>
         </>
