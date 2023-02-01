@@ -2,14 +2,8 @@ express = require("express");
 var router = express.Router();
 var fs = require("fs");
 const sql = require('mysql');
+let con = require('../tables-constructor');
 
-//connection with database todos
-const con = sql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'z10mz10m',
-  database: "final_project_DB"
-})
 
 router.get('/user', (req , res )=> {
   let sql = `select * from user where name = '${req.query.name}'`

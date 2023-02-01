@@ -2,13 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
 let fromMysqlInsert = require('../routes/mySQL_DB_first_Insert');
-
-var con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "z10mz10m",
-    database: "final_project_DB"
-});
+let con = require('../tables-constructor');
 
 
 

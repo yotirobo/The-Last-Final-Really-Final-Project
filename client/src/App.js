@@ -11,8 +11,9 @@ import VideoPlayer from './component/VideoPlayer';
 
 function App() {
   const [cookieExist, setCookieExist] = useState(false);
-  console.log("cookieExist", cookieExist)
-  if (cookieExist) {
+  // console.log("cookieExist", cookieExist)
+  console.log("app");
+  if (document.cookie) {
     console.log('here1')
     return (
       <>

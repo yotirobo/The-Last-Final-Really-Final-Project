@@ -1,19 +1,12 @@
 var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
-
-var con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "z10mz10m",
-    database: "final_project_DB"
-});
+let con = require('../tables-constructor');
 
 function insertIntoTable(table_name, table_columns, req, res) {
     con.connect(function (err) {
         if (err) throw err;
         var sql = `INSERT INTO ${table_name} (${table_columns}) VALUES ?`;
-        console.log(sql);
             var values = [req.body.data];
             con.query(sql, values, function (err, result) {
                 if (err) throw err;
