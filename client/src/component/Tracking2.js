@@ -21,10 +21,12 @@ const Tracking = () => {
     const handleSelect = event => {
         const { value } = event.target;
         setSelected(value);
+        
     };
 
     const createTrackingList = (list) => {
         let sortedList;
+        console.log(list);
         switch (selected) {
             case "byId":
                 sortedList = list.sort((a, b) => {
