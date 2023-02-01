@@ -8,8 +8,6 @@ function ShowInfo() {
     const [insertMedia, setInsertMedia] = useState([]);
     const [trakingData, setTrakingData] = useState([]);
     const [trakingDataList, setTrakingDataList] = useState([]);
-    const [query, setQuery] = useState("")
-    const [searchTerm, setSearchTerm] = useState('');
     const [addFlag, setAddFlag] = useState(false);
     const [movieData, setMovieData] = useState({
         title: "",
@@ -85,7 +83,7 @@ function ShowInfo() {
             title: movieData.title,
             video_src: movieData.video_src,
             photo_src: movieData.photo_src,
-            deleted: movieData.deleted,
+            deleted: 0,
             publish_Date: movieData.publish_date,
             likes: movieData.likes,
             genre: movieData.genre,
@@ -154,12 +152,12 @@ function ShowInfo() {
                         onChange={handleAddMovie}
                         placeholder="photo src"
                     />
-                    <input
-                        type="boolean"
-                        name='deleted'
-                        onChange={handleAddMovie}
-                        placeholder="deleted"
-                    />
+                    <label htmlFor="movie_or_TVShow">Movie or TV Show?</label>
+                    <select onChange={handleAddMovie} name="movie_or_TVShow" id="movie_or_TVShow">
+                        <option value="movie">Movie</option>
+                        <option value="TVShow">Tv Show</option>
+
+                    </select>
                     <input
                         type="date"
                         name='publish_date'
@@ -185,12 +183,6 @@ function ShowInfo() {
                         name="rate"
                         onChange={handleAddMovie}
                         placeholder="rate"
-                    />
-                    <input
-                        type="text"
-                        name='movie_or_TVShow'
-                        onChange={handleAddMovie}
-                        placeholder="movies or a TV show?"
                     />
                     <button onClick={submitMovieButton} type="submit">Add movie!</button>
                 </form>
