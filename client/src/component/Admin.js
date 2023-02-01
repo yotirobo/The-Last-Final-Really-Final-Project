@@ -12,11 +12,14 @@ function ShowInfo() {
 
     useEffect(() => {
         getTrakingData();
-        making_traking_information_list();
     }, [])
 
     useEffect(() => {
-        fetchInsertMedia();
+        if(trakingData.length) making_traking_information_list();
+    }, [trakingData])
+
+    useEffect(() => {
+        // fetchInsertMedia();
     }, [insertMedia])
 
     // this how the fetch request should to look like
