@@ -62,7 +62,6 @@ router.get('/deletePost', (req, res) => {
     var sql = `UPDATE post SET deleted=1 WHERE post_id = ${req.query.post_id}`;
     con.query(sql, (err, result) => {
         if (err) { console.log(err); return; }
-        console.log('post' + result);
     })
     //insert into action table
     sql = `INSERT INTO action (action_type, description, time, user_id) VALUES ?`;
