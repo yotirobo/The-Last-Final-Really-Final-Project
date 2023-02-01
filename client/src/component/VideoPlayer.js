@@ -66,6 +66,7 @@ function VideoPlayer() {
         )
     }
 
+    console.log(videoInfo.length);
     return (
         <>
             <NavComponent />
@@ -78,5 +79,6 @@ function VideoPlayer() {
         </>
     );
 }
+
 
 export default VideoPlayer;
