@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from 'react';
-<<<<<<< HEAD
-import { useNavigate } from 'react-router-dom';
-=======
 import { useNavigate } from "react-router-dom";
->>>>>>> 88fbaf8a94e66b275d5278aa603c07fbb6445dc8
 import NavComponent from './navComponent';
 import '../css/sratim&sdarot.css'
 
@@ -19,7 +15,6 @@ function Sratim() {
     const navigate = useNavigate();
 
     let moment = require('moment');
-    let navigate = useNavigate();
 
 
     useEffect(() => {
