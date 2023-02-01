@@ -112,6 +112,13 @@ router.get('/rate', (req, res) => {
     con.query(sql, [[values]], function (err, result) {
         if (err) throw err;
     });
+
+    var sql = `UPDATE media m SET m.rate=LEAST(m.rate / 5 * ${req.query.rate}+0.1, 10) WHERE m.media_id = ${req.query.media_id}`;
+    con.query(sql, (err, result) => {
+        if (err) { console.log(err); return; }
+    })
+    res.send(JSON.stringify(Math.random() * 0.5));
 });
+
 
 module.exports = router;

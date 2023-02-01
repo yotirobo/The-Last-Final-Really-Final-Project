@@ -17,6 +17,7 @@ function VideoPlayer() {
     const [likeFlag, setLikeFlag] = useState(false);
     const [starFlag, setStarFlag] = useState(0);
     const [userChoise, setUserChoise] = useState([]);
+    const [overallRate, setOverallRate] = useState(0);
 
     const addPostTitleRef = useRef();
     const addPostBodyRef = useRef();
@@ -32,26 +33,27 @@ function VideoPlayer() {
         making_video_render();
         getVideoInfo();
         getVideoPosts();
-    }, [media_id, reRenderPosts])
+    }, [media_id, reRenderPosts, overallRate])
 
     useEffect(() => {
         if (videoInfo.length) {
             making_video_information_div();
             making_video_title();
         }
-        if (userChoise.length){
-            setStarFlag(userChoise.rate)
-            userChoise.liked === 0 ? setLikeFlag(false) : setLikeFlag(true);
-        }
         making_posts_div();
+        setStarFlag(userChoise.rate)
+        userChoise.liked === 0 ? setLikeFlag(false) : setLikeFlag(true);
     }, [videoInfo, videoPosts])
+
 
     useEffect(() => {
         setReRenderPosts(PostStatus)
     }, [PostStatus])
 
     useEffect(() => {
-        rateVideo(starFlag)
+        if (media_id.length) {
+            rateVideo(starFlag)
+        }
     }, [starFlag])
 
     //function that gets data from DB:
@@ -145,7 +147,9 @@ function VideoPlayer() {
 
     //function that send to server rate information
     const rateVideo = () => {
-        getAndSendData(`http://localhost:5000/videoPlayer/rate/?rate=${starFlag}&&user_id=${userData.user_id}&&media_id=${media_id}`)
+        if (starFlag) {
+            getAndSendData(`http://localhost:5000/videoPlayer/rate/?rate=${starFlag}&&user_id=${userData.user_id}&&media_id=${media_id}`, setOverallRate)
+        }
     }
 
     return (
