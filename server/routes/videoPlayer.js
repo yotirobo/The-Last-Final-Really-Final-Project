@@ -47,14 +47,30 @@ router.get('/addPost', (req, res) => {
         if (err) throw err;
     });
     //insert into action table
-    setTimeout(()=>{
+    setTimeout(() => {
         sql = `INSERT INTO action (action_type, description, time, user_id) VALUES ?`;
-        var values = ['added post', `added post id ` +`${lastInsertPostId}`, `${moment.utc(new Date()).format('YYYY-MM-DD HH:mm:ss')}`, req.query.user_id];
+        var values = ['added post', `added post id ` + `${lastInsertPostId}`, `${moment.utc(new Date()).format('YYYY-MM-DD HH:mm:ss')}`, req.query.user_id];
         con.query(sql, [[values]], function (err, result) {
             if (err) throw err;
         });
     }, 50);
     res.send(JSON.stringify(`insret to post worked!`.concat(Math.random() * 0.5)));
+});
+
+router.get('/deletePost', (req, res) => {
+    //set as delete in post table
+    var sql = `UPDATE post SET deleted=1 WHERE post_id = ${req.query.post_id}`;
+    con.query(sql, (err, result) => {
+        if (err) { console.log(err); return; }
+        console.log('post' + result);
+    })
+    //insert into action table
+    sql = `INSERT INTO action (action_type, description, time, user_id) VALUES ?`;
+    var values = ['deleted post', `deleted post id ${req.query.post_id}`, `${moment.utc(new Date()).format('YYYY-MM-DD HH:mm:ss')}`, req.query.user_id];
+    con.query(sql, [[values]], function (err, result) {
+        if (err) throw err;
+    });
+    res.send(JSON.stringify(`post #${req.query.post_id} has been successfully deleted!`.concat(Math.random() * 0.5)));
 });
 
 module.exports = router;

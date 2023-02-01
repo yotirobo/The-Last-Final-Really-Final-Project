@@ -12,7 +12,7 @@ function VideoPlayer() {
     const [videoPosts, setVideoPosts] = useState([]); //for fetch request that gets video posts
     const [videoPostsDiv, setVideoPostsDiv] = useState([]); //to render video posts div
     const [showAddPostFormFlag, setShowAddPostFormFlag] = useState(false); //
-    const [addPostStatus, setAddPostStatus] = useState("");
+    const [PostStatus, setPostStatus] = useState("");
     const [reRenderPosts, setReRenderPosts] = useState("");//rerender posts after sending new post to server
     const addPostTitleRef = useRef();
     const addPostBodyRef = useRef();
@@ -41,8 +41,8 @@ function VideoPlayer() {
     }, [videoInfo, videoPosts])
 
     useEffect(() => {
-        setReRenderPosts(addPostStatus)
-    }, [addPostStatus])
+        setReRenderPosts(PostStatus)
+    }, [PostStatus])
 
     //function that gets data from DB:
     async function getDataFromDB(fetchUrl, setDataFromFetch) {
@@ -92,6 +92,11 @@ function VideoPlayer() {
         getDataFromDB(`http://localhost:5000/videoPlayer/videoPosts/?media_id=${media_id}`, setVideoPosts)
     }
 
+    //function that sets post as deleted:
+    const deletePost = (post_id, user_id) => {
+        getDataFromDB(`http://localhost:5000/videoPlayer/deletePost/?post_id=${post_id}&&user_id=${user_id}`, setPostStatus)
+    }
+
     //function that prepare the video posts that will render:
     function making_posts_div() {
         setVideoPostsDiv(videoPosts && videoPosts?.map((item, index) => {
@@ -101,20 +106,19 @@ function VideoPlayer() {
                     <p></p>
                     <h4>{item.title}</h4>
                     <p>{item.body}</p>
-                    {userData.name === item.name || userData.is_admin === 1 ? <button /*onClick={deletePost}*/>delete me</button> : null}
+                    {userData.name === item.name || userData.is_admin === 1 ? <button onClick={() => deletePost(item.post_id, item.user_id)}>delete me</button> : null}
                 </div>
             )
         }))
     }
 
     //function that send add post values to server
-    const insretPost = (event) => {
-        event.preventDefault();
+    const insretPost = (e) => {
+        e.preventDefault();
         setShowAddPostFormFlag(false)
-        getDataFromDB(`http://localhost:5000/videoPlayer/addPost/?user_id=${userData.user_id}&&media_id=${media_id}&&title=${addPostTitleRef.current.value}&&body=${addPostBodyRef.current.value}`, setAddPostStatus)
+        getDataFromDB(`http://localhost:5000/videoPlayer/addPost/?user_id=${userData.user_id}&&media_id=${media_id}&&title=${addPostTitleRef.current.value}&&body=${addPostBodyRef.current.value}`, setPostStatus)
     }
 
-    console.log("y", addPostStatus);
     return (
         <>
             <NavComponent />
@@ -133,8 +137,8 @@ function VideoPlayer() {
                     <input type="text" ref={addPostBodyRef} placeholder='enter here post content' />
                     <button className='form-buttons' type="submit">add</button>
                 </form>
-                {addPostStatus.length && !showAddPostFormFlag ? addPostStatus.split('0')[0] : null}
-                {/* {addPostStatus.length? setTimeout(setAddPostStatus(""),1000) : null} */}
+                {PostStatus.length && !showAddPostFormFlag ? PostStatus.split('0')[0] : null}
+                {/* {PostStatus.length? setTimeout(setPostStatus(""),1000) : null} */}
             </div>
         </>
     );
