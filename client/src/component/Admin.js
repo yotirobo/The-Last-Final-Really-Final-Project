@@ -15,8 +15,6 @@ function ShowInfo() {
     const [selected, setSelected] = useState('');
     const [movieData, setMovieData] = useState({
         title: "",
-        video_src: "",
-        photo_src: "",
         deleted: 0,
         publish_date: Date,
         likes: Number,
@@ -40,6 +38,7 @@ function ShowInfo() {
         console.log(`${[e.target.name]} : ` + `${e.target.value}`);
     };
     async function addMovieToDataBase() {
+        console.log("yyyy", movieData);
         const response = await fetch('http://localhost:5000/admin/media/addMovie', {
             method: 'POST',
             headers: {
@@ -47,9 +46,7 @@ function ShowInfo() {
             },
             body: JSON.stringify({
                 title: movieData.title,
-                video_src: movieData.video_src,
-                photo_src: movieData.photo_src,
-                deleted: 0,
+                deleted: false,
                 publish_Date: movieData.publish_date,
                 likes: movieData.likes,
                 genre: movieData.genre,
@@ -69,7 +66,6 @@ function ShowInfo() {
     const submitMovieButton = () => {
         setAddFlag(!addFlag)
         addMovieToDataBase();
-        console.log('movie:' + movieData.video_src + " photo" + movieData.photo_src)
     }
 
     //function that gets traking information:
@@ -79,7 +75,7 @@ function ShowInfo() {
             <div>
                 <h1>Admin</h1>
                 <p>add movie/tv show:</p>
-                <button type={'submit'} style={addFlag ? { display: "none" } : { display: "block" }} onClick={() => setAddFlag(!addFlag)}>add movie</button>
+                <button type={'submit'} style={addFlag ? { display: "none" } : { display: "block" }} onClick={() => setAddFlag(!addFlag)}>add video</button>
                 <form style={addFlag ? { display: "block" } : { display: "none" }}>
                     <input
                         type="text"
@@ -87,18 +83,6 @@ function ShowInfo() {
                         onChange={handleAddMovie}
                         placeholder="title"
 
-                    />
-                    <input
-                        type="text"
-                        name='video_src'
-                        onChange={handleAddMovie}
-                        placeholder="video src"
-                    />
-                    <input
-                        type="text"
-                        name='photo_src'
-                        onChange={handleAddMovie}
-                        placeholder="photo src"
                     />
                     <label htmlFor="movie_or_TVShow">Movie or TV Show?</label>
                     <select onChange={handleAddMovie} name="movie_or_TVShow" id="movie_or_TVShow">
@@ -132,7 +116,7 @@ function ShowInfo() {
                         onChange={handleAddMovie}
                         placeholder="rate"
                     />
-                    <button onClick={submitMovieButton} type="submit">Add movie!</button>
+                    <button onClick={submitMovieButton} type="submit">Add video!</button>
                 </form>
                 <hr />
                 <p>remove movie/tv show form:</p>

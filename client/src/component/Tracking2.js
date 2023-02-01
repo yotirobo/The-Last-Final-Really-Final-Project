@@ -57,7 +57,7 @@ const Tracking = () => {
         return sortedList.map((arr, index) => (
             <div key={index}>
                 <h5>Task number {index + 1}:</h5>
-                <p>{arr.name} {arr.description} at {moment.utc(arr.time).format('DD/MM/YY HH:mm:ss')}</p>
+                <p>{arr.name} {arr.description} at {moment.utc(arr.time).local().format('DD/MM/YY HH:mm:ss')}</p>
             </div>
         ));
     };

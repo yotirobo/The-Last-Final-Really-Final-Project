@@ -16,6 +16,7 @@ function VideoPlayer() {
     const [reRenderPosts, setReRenderPosts] = useState("");//rerender posts after sending new post to server
     const [likeFlag, setLikeFlag] = useState(false);
     const [starFlag, setStarFlag] = useState(0);
+    const [userChoise, setUserChoise] = useState([]);
 
     const addPostTitleRef = useRef();
     const addPostBodyRef = useRef();
@@ -38,6 +39,8 @@ function VideoPlayer() {
             making_video_information_div();
             making_video_title();
         }
+        setStarFlag(userChoise.rate)
+        userChoise.liked === 0 ? setLikeFlag(false) : setLikeFlag(true);
         making_posts_div();
     }, [videoInfo, videoPosts])
 
@@ -64,7 +67,7 @@ function VideoPlayer() {
     //function that set the video as watched in the database:
     const setAsWatched = () => {
         if (media_id.length) {
-            getAndSendData(`http://localhost:5000/videoPlayer/watched/?media_id=${media_id}&&user_id=${userData.user_id}`)
+            getAndSendData(`http://localhost:5000/videoPlayer/watched/?media_id=${media_id}&&user_id=${userData.user_id}`, setUserChoise)
         }
     };
 
@@ -84,10 +87,10 @@ function VideoPlayer() {
     function making_video_information_div() {
         setVideoInfoDiv(
             <div className="video-info-container" >
-                <p>{videoInfo[0].genre} {videoInfo[0].movie_or_TVShow === "movie" ? "Movie" : "TV Show"}</p>
-                <p>publish Date: 📆 {moment.utc(videoInfo[0].publish_Date).format('DD/MM/YY')}</p>
-                <p>likes: 👍🏼 {videoInfo[0].likes}</p>
-                <p>rate: ⭐ {videoInfo[0].rate}</p>
+                <span>{videoInfo[0].genre} {videoInfo[0].movie_or_TVShow === "movie" ? "Movie" : "TV Show"}</span><br /><br />
+                <span>publish Date: 📆 {moment.utc(videoInfo[0].publish_Date).format('DD/MM/YY')}</span><br /><br />
+                <span>likes: 👍🏼 {videoInfo[0].likes}</span><br /><br />
+                <span>rate: ⭐ {videoInfo[0].rate}</span><br /><br />
             </div>
         )
     }
@@ -117,7 +120,8 @@ function VideoPlayer() {
                     <p>#{item.post_id}  &nbsp; &nbsp; {item.name}:</p>
                     <p></p>
                     <h4>{item.title}</h4>
-                    <p>{item.body}</p>
+                    <h7>{item.body}</h7>
+                    <br /><br />
                     {userData.name === item.name || userData.is_admin === 1 ? <button onClick={() => deletePost(item.post_id, item.user_id)}>delete me</button> : null}
                 </div>
             )
@@ -149,20 +153,22 @@ function VideoPlayer() {
                 {videoTitle}
                 <br />
                 {video}
-                <p>did you like this video? like and rate us! &nbsp; <span onClick={likeVideo}>{likeFlag ? "👍🏾 Thank You For Liking this video!" : "👍🏻"}</span> </p>
-                <span onClick={() => setStarFlag(1)}>{starFlag > 0 ? "⭐" : "⚝"}</span>
-                <span onClick={() => setStarFlag(2)}>{starFlag > 1 ? "⭐" : "⚝"}</span>
-                <span onClick={() => setStarFlag(3)}>{starFlag > 2 ? "⭐" : "⚝"}</span>
-                <span onClick={() => setStarFlag(4)}>{starFlag > 3 ? "⭐" : "⚝"}</span>
-                <span onClick={() => setStarFlag(5)}>{starFlag > 4 ? "⭐" : "⚝"}</span>
-                <span onClick={() => setStarFlag(6)}>{starFlag > 5 ? "⭐" : "⚝"}</span>
-                <span onClick={() => setStarFlag(7)}>{starFlag > 6 ? "⭐" : "⚝"}</span>
-                <span onClick={() => setStarFlag(8)}>{starFlag > 7 ? "⭐" : "⚝"}</span>
-                <span onClick={() => setStarFlag(9)}>{starFlag > 8 ? "⭐" : "⚝"}</span>
-                <span onClick={() => setStarFlag(10)}>{starFlag > 9 ? "⭐" : "⚝"}</span>
-
-                {videoInfoDiv}
-                <h4>posts:</h4>
+                <div className='info-div' ><br />
+                    <span>did you like this video? like and rate us! &nbsp; </span> <br /><br />
+                    <span onClick={likeVideo}>{likeFlag ? "👍🏾 Thank You For Liking this video!" : "👍🏻"}</span> <br /><br />
+                    <span onClick={() => setStarFlag(1)}>{starFlag > 0 ? "⭐" : "⚝"}</span>
+                    <span onClick={() => setStarFlag(2)}>{starFlag > 1 ? "⭐" : "⚝"}</span>
+                    <span onClick={() => setStarFlag(3)}>{starFlag > 2 ? "⭐" : "⚝"}</span>
+                    <span onClick={() => setStarFlag(4)}>{starFlag > 3 ? "⭐" : "⚝"}</span>
+                    <span onClick={() => setStarFlag(5)}>{starFlag > 4 ? "⭐" : "⚝"}</span>
+                    <span onClick={() => setStarFlag(6)}>{starFlag > 5 ? "⭐" : "⚝"}</span>
+                    <span onClick={() => setStarFlag(7)}>{starFlag > 6 ? "⭐" : "⚝"}</span>
+                    <span onClick={() => setStarFlag(8)}>{starFlag > 7 ? "⭐" : "⚝"}</span>
+                    <span onClick={() => setStarFlag(9)}>{starFlag > 8 ? "⭐" : "⚝"}</span>
+                    <span onClick={() => setStarFlag(10)}>{starFlag > 9 ? "⭐" : "⚝"}</span><br /><br />
+                    {videoInfoDiv}
+                </div>
+                <h3>posts:</h3>
                 {videoPostsDiv.length ? videoPostsDiv : "there is no posts on this video yet, be the first person posting!"}
 
                 <button className='form-buttons' style={showAddPostFormFlag ? { display: "none" } : { display: "block" }} onClick={() => setShowAddPostFormFlag(true)}>add post</button>
