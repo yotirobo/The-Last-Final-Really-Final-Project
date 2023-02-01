@@ -18,6 +18,20 @@ router.get('/', (req, res) => {
     });
 });
 
+//set video as watched in the database
+router.get('/watched', (req, res) => {
+    let sql = `SELECT * FROM user_watched uw WHERE uw.media_id=${req.query.media_id} AND uw.user_id=${req.query.user_id}`;
+    con.query(sql, function (err, result) {
+        if (result.length === 0) {
+            var sql = `INSERT INTO user_watched (user_id, media_id, liked, rate) VALUES ?`;
+            var values = [req.query.user_id, req.query.media_id, false, null];
+            con.query(sql, [[values]], function (err, result) {
+                if (err) throw err;
+            });
+        };
+    });
+});
+
 //for the video information rendering
 router.get('/videoInfo', (req, res) => {
     let sql = `SELECT * FROM media m WHERE m.media_id=${req.query.media_id}`;
@@ -43,7 +57,6 @@ router.get('/addPost', (req, res) => {
     var values = [req.query.user_id, req.query.media_id, req.query.title, req.query.body, false];
     con.query(sql, [[values]], function (err, result) {
         lastInsertPostId = result.insertId
-        console.log("🚀 ~ file: videoPlayer.js:44 ~ lastInsertPostId", lastInsertPostId)
         if (err) throw err;
     });
     //insert into action table
@@ -53,8 +66,8 @@ router.get('/addPost', (req, res) => {
         con.query(sql, [[values]], function (err, result) {
             if (err) throw err;
         });
-    }, 50);
-    res.send(JSON.stringify(`insret to post worked!`.concat(Math.random() * 0.5)));
+    }, 90);
+    res.send(JSON.stringify(`your post has been successfully added!`.concat("aaa").concat(Math.random() * 0.5)));
 });
 
 router.get('/deletePost', (req, res) => {
@@ -69,7 +82,23 @@ router.get('/deletePost', (req, res) => {
     con.query(sql, [[values]], function (err, result) {
         if (err) throw err;
     });
-    res.send(JSON.stringify(`post #${req.query.post_id} has been successfully deleted!`.concat(Math.random() * 0.5)));
+    res.send(JSON.stringify(`post #${req.query.post_id} has been successfully deleted!`.concat("aaa").concat(Math.random() * 0.5)));
+});
+
+router.get('/like', (req, res) => {
+    console.log(req.query.liked);
+    //set as liked in user_watched table
+    var sql = `UPDATE user_watched SET liked=${req.query.liked} WHERE media_id = ${req.query.media_id} AND user_id = ${req.query.user_id}`;
+    con.query(sql, (err, result) => {
+        if (err) { console.log(err); return; }
+    })
+    //insert into action table
+    sql = `INSERT INTO action (action_type, description, time, user_id) VALUES ?`;
+    var values = [req.query.liked? 'likes media': 'remove like', req.query.liked? `likes media id ${req.query.media_id}` : `remove like on media id ${req.query.media_id}`, `${moment.utc(new Date()).format('YYYY-MM-DD HH:mm:ss')}`, req.query.user_id];
+    console.log("values :", values);
+    // con.query(sql, [[values]], function (err, result) {
+    //     if (err) throw err;
+    // });
 });
 
 module.exports = router;
