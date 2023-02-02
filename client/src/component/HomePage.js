@@ -206,6 +206,8 @@ function HomePage(props) {
   return (
     <>
       <section id="entry-page">
+      <img style={{marginLeft:"10px",marginTop:"10px", position:"fixed"}} width={"14%"} src={require('../photos/logo3.png')} alt='logo' />
+
         {CurrentView()}
       </section>
 
