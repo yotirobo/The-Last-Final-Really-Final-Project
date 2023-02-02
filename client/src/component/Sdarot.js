@@ -46,7 +46,7 @@ function Sdarot() {
 
     //function that prepare the div that will render in user favorite TVshows:
     function making_favorite_genre_TVshows_list() {
-        setFavoriteGenreTVshowsList(favoriteGenreTVshows && favoriteGenreTVshows?.map((item, index) => {
+        setFavoriteGenreTVshowsList(favoriteGenreTVshows?.map((item, index) => {
             return (
                 <div key={index} className="img-container" onClick={() => navigate(`/videoPlayer?media_id=${item.media_id}`)}>
                     {setFavoriteGenre(item.genre)}
@@ -66,7 +66,7 @@ function Sdarot() {
 
     //function that prepare the div that will render in user unwatched TVshows:
     function making_unwatched_TVshows_list() {
-        setUnwatchedTVshowsList(unwatchedTVshows && unwatchedTVshows?.map((item, index) => {
+        setUnwatchedTVshowsList(unwatchedTVshows?.map((item, index) => {
             return (
                 <div key={index} className="img-container" onClick={() => navigate(`/videoPlayer?media_id=${item.media_id}`)}>
                     <img className="movie-img" src={`http://localhost:5000/TVshows/photo/?photo_src=${item.photo_src.split('./Media/TV-Shows-photos/')[1]}`} />
@@ -85,7 +85,7 @@ function Sdarot() {
 
     //function that prepare the div that will render in user watched TVshows:
     function making_watched_TVshows_list() {
-        setWatchedTVshowsList(watchedTVshows && watchedTVshows?.map((item, index) => {
+        setWatchedTVshowsList(watchedTVshows?.map((item, index) => {
             return (
                 <div key={index} className="img-container" onClick={() => navigate(`/videoPlayer?media_id=${item.media_id}`)}>
                     <img className="movie-img" src={`http://localhost:5000/TVshows/photo/?photo_src=${item.photo_src.split('./Media/TV-Shows-photos/')[1]}`} />

@@ -46,7 +46,7 @@ function Sratim() {
 
     //function that prepare the div that will render in user favorite movies:
     function making_favorite_genre_movies_list() {
-        setFavoriteGenreMoviesList(favoriteGenreMovies && favoriteGenreMovies?.map((item, index) => {
+        setFavoriteGenreMoviesList(favoriteGenreMovies?.map((item, index) => {
             return (
                 <div key={index} className="img-container" onClick={() => navigate(`/videoPlayer?media_id=${item.media_id}`)}>
                     {setFavoriteGenre(item.genre)}
@@ -66,7 +66,7 @@ function Sratim() {
 
     //function that prepare the div that will render in user unwatched movies:
     function making_unwatched_movies_list() {
-        setUnwatchedMoviesList(unwatchedMovies && unwatchedMovies?.map((item, index) => {
+        setUnwatchedMoviesList(unwatchedMovies?.map((item, index) => {
             return (
                 <div key={index} className="img-container" onClick={() => navigate(`/videoPlayer?media_id=${item.media_id}`)}>
                     <img className="movie-img" src={`http://localhost:5000/movies/photo/?photo_src=${item.photo_src.split('./Media/Movies-Photos/')[1]}`} />
@@ -85,7 +85,7 @@ function Sratim() {
 
     //function that prepare the div that will render in user watched movies:
     function making_watched_movies_list() {
-        setWatchedMoviesList(watchedMovies && watchedMovies?.map((item, index) => {
+        setWatchedMoviesList(watchedMovies?.map((item, index) => {
             return (
                 <div key={index} className="img-container" onClick={() => navigate(`/videoPlayer?media_id=${item.media_id}`)}>
                     <img className="movie-img" src={`http://localhost:5000/movies/photo/?photo_src=${item.photo_src.split('./Media/Movies-Photos/')[1]}`} />
