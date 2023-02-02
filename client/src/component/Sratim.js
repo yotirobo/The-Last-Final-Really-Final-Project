@@ -15,26 +15,17 @@ function Sratim() {
     const [watchedMoviesList, setWatchedMoviesList] = useState([]); //to render watched movies list
     const navigate = useNavigate();
 
-
-
     useEffect(() => {
         getFavoriteGenreMovies();
+        getUnwatchedMovies();
+        getWatchedMovies();
     }, [])
 
     useEffect(() => {
-        making_favorite_genre_movies_list();
-        getUnwatchedMovies();
-    }, [favoriteGenreMovies])
-
-    useEffect(() => {
-        making_unwatched_movies_list();
-        getWatchedMovies();
-    }, [unwatchedMovies])
-
-    useEffect(() => {
-        making_watched_movies_list();
-    }, [watchedMovies])
-
+        if (favoriteGenreMovies) making_favorite_genre_movies_list();
+        if (unwatchedMovies) making_unwatched_movies_list();
+        if (watchedMovies) making_watched_movies_list();
+    }, [favoriteGenreMovies, unwatchedMovies, watchedMovies])
 
     //function that gets data from DB:
     async function getDataFromDB(fetchUrl, setDataFromFetch) {

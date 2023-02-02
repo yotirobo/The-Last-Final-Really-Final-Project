@@ -15,24 +15,17 @@ function Sdarot() {
     const [watchedTVshowsList, setWatchedTVshowsList] = useState([]); //to render watched TVshows list
     const navigate = useNavigate();
 
-
     useEffect(() => {
         getFavoriteGenreTVshows();
+        getUnwatchedTVshows();
+        getWatchedTVshows();
     }, [])
 
     useEffect(() => {
-        making_favorite_genre_TVshows_list();
-        getUnwatchedTVshows();
-    }, [favoriteGenreTVshows])
-
-    useEffect(() => {
-        making_unwatched_TVshows_list();
-        getWatchedTVshows();
-    }, [unwatchedTVshows])
-
-    useEffect(() => {
-        making_watched_TVshows_list();
-    }, [watchedTVshows])
+        if (favoriteGenreTVshows) making_favorite_genre_TVshows_list();
+        if (unwatchedTVshows) making_unwatched_TVshows_list();
+        if (watchedTVshows) making_watched_TVshows_list();
+    }, [favoriteGenreTVshows, unwatchedTVshows, watchedTVshows])
 
     //function that gets data from DB:
     async function getDataFromDB(fetchUrl, setDataFromFetch) {
