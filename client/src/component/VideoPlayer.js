@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import '../css/videoPlayer.css'
 import NavComponent from './navComponent';
+import '../css/videoPlayer.css'
+let moment = require('moment');
 
 function VideoPlayer() {
     const userData = JSON.parse(localStorage.getItem("userOnline"));
@@ -21,8 +22,6 @@ function VideoPlayer() {
 
     const addPostTitleRef = useRef();
     const addPostBodyRef = useRef();
-
-    let moment = require('moment');
 
     useEffect(() => {
         setMedia_id(window.location.search.split('?media_id=')[1]);

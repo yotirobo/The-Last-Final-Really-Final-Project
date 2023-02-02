@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import NavComponent from './navComponent';
 import '../css/sratim&sdarot.css'
+let moment = require('moment');
 
 function Sratim() {
     const userData = JSON.parse(localStorage.getItem("userOnline"));
@@ -14,7 +15,6 @@ function Sratim() {
     const [watchedMoviesList, setWatchedMoviesList] = useState([]); //to render watched movies list
     const navigate = useNavigate();
 
-    let moment = require('moment');
 
 
     useEffect(() => {
@@ -105,18 +105,7 @@ function Sratim() {
             )
         }))
     }
-
-    // async function getWatchedMovies() {
-    //     try {
-    //         const response = await fetch(`http://localhost:5000/movies/watched_movies/?user_id=${userData.user_id}`);
-    //         const data = await response.json();
-    //         setWatchedMovies(data)
-    //     }
-    //     catch (error) {
-    //         console.log('error: ', error)
-    //     }
-    // }
-
+    
     return (
         <>
             <NavComponent />

@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import '../css/tracking.css';
+let moment = require('moment');
 
 const Tracking = () => {
     const [selected, setSelected] = useState("byId");
     const [trackingData, setTrackingData] = useState([]);
-    let moment = require('moment');
 
     useEffect(() => {
         const getTrackingData = async () => {
             try {
                 const response = await fetch(`http://localhost:5000/admin/traking`);
                 const data = await response.json();
-                console.log("aaa", data);
                 setTrackingData(data);
             } catch (error) {
                 console.error('Error fetching tracking data: ', error);
@@ -28,7 +27,6 @@ const Tracking = () => {
 
     const createTrackingList = (list) => {
         let sortedList;
-        console.log(list);
         switch (selected) {
             case "byId":
                 sortedList = list.sort((a, b) => {

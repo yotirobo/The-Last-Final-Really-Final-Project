@@ -1,16 +1,11 @@
 express = require("express");
 var router = express.Router();
-var fs = require("fs");
-const sql = require('mysql');
 let con = require('../tables-constructor');
-
 
 router.get('/user', (req , res )=> {
   let sql = `select * from user where name = '${req.query.name}'`
   con.query(sql, (err, result) => {
     if (err) { console.log(err); return; }
-    console.log(sql);
-    console.log(result);
     res.send(result)
   })
 })

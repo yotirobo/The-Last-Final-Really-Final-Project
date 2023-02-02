@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import NavComponent from './navComponent';
 import '../css/sratim&sdarot.css'
-let fromSratim = require('./Sratim');
 let moment = require('moment');
 
 function Sdarot() {
