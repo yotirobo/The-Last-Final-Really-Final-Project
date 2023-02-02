@@ -1,18 +1,11 @@
-import e from 'cors';
 import React, { useEffect, useState } from 'react';
 import NavComponent from './navComponent';
 import SearchBar from './search';
-import Tracking from './Tracking2';
+import Tracking from './Tracking';
 
 function ShowInfo() {
-    const userData = JSON.parse(localStorage.getItem("userOnline"));
-    const [media, setMedia] = useState([]);
     const [insertMedia, setInsertMedia] = useState([]);
-    const [trakingData, setTrakingData] = useState([]);
-    const [trakingDataList, setTrakingDataList] = useState([]);
     const [addFlag, setAddFlag] = useState(false);
-    const [sortFlag, setSortFlag] = useState(false);
-    const [selected, setSelected] = useState('');
     const [movieData, setMovieData] = useState({
         title: "",
         deleted: 0,
@@ -22,8 +15,6 @@ function ShowInfo() {
         rate: Number,
         movie_or_TVShow: ""
     });
-
-    let moment = require('moment');
     
     useEffect(() => {
         // fetchInsertMedia();
@@ -35,10 +26,8 @@ function ShowInfo() {
             ...movieData,
             [e.target.name]: e.target.value
         })
-        console.log(`${[e.target.name]} : ` + `${e.target.value}`);
     };
     async function addMovieToDataBase() {
-        console.log("yyyy", movieData);
         const response = await fetch('http://localhost:5000/admin/media/addMovie', {
             method: 'POST',
             headers: {
@@ -55,7 +44,6 @@ function ShowInfo() {
             })
         })
         const data = await response.json();
-        console.log(data);
         if (data) {
             alert('movie added successfully');
         } else {
@@ -124,8 +112,6 @@ function ShowInfo() {
                 <hr />
                 <p>tracking:</p>
                 <Tracking />
-
-                {/* display filter by action buttons */}
             </div>
         </>
     );

@@ -1,11 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var mysql = require('mysql');
 let fromMysqlInsert = require('../routes/mySQL_DB_first_Insert');
 let con = require('../tables-constructor');
-
-
-
 
 //function that inserts into media table:
 router.post('/media', function (req, res, next) {
@@ -13,14 +9,11 @@ router.post('/media', function (req, res, next) {
 });
 
 router.post('/media/addMovie', function (req, res, next) {
-    console.log('me:', req.body.movie_or_TVShow === 'movie');
     const sql = `INSERT INTO media ( title , video_src, photo_src, deleted, publish_Date, likes, genre, rate, movie_or_TVShow) VALUES ?`;
-    console.log('sqllllllll:', sql);
 
     let values = [req.body.title, req.body.movie_or_TVShow === 'movie'? './Media/Movies/comind-soon2.webm' : './Media/TV-Shows/coming-soon.webm' , req.body.movie_or_TVShow === 'movie'? './Media/Movies-Photos/coming-soon.png' : './Media/TV-Shows-photos/coming-soon2.png', req.body.deleted, req.body.publish_Date, req.body.likes, req.body.genre, req.body.rate ,req.body.movie_or_TVShow];
     con.query(sql, [[values]], function (err, result) {
         if (err) {console.log(err); res.send(err); return; };
-        console.log(result, "Ddd");
         res.send(JSON.stringify(result));
     })
 });
@@ -43,7 +36,6 @@ router.get(`/traking`, function (req, res) {
 })
 
 router.post('/media/deleteMovie', function (req, res, next) {
-    console.log('server')
     const sql = `UPDATE media SET deleted = 1 WHERE title ='${req.query.movieName}'`;
     con.query(sql, function (err, result) {
         if (err) {console.log(err); res.send(err); return; };

@@ -24,7 +24,6 @@ function ShowInfo() {
             ...profileInfo,
             [e.target.name]: e.target.value
         })
-        console.log(profileInfo);
     };
     useEffect(() => {
         myInfo();

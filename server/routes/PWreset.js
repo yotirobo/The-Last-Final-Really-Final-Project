@@ -1,5 +1,5 @@
-const nodemailer = require('nodemailer');
 var express = require('express');
+const nodemailer = require('nodemailer');
 var router = express.Router();
 var mysql = require('mysql');
 let con = require('../tables-constructor');

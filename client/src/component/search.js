@@ -3,8 +3,7 @@ import React, { useState, useEffect } from 'react';
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [myDataBase, setMyDataBase] = useState([]);
-  const [ mediaName , setMediaName] = useState("");
-
+  const [mediaName , setMediaName] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,7 +24,6 @@ const SearchBar = () => {
       })  
     })
     const data = await response.json();
-    console.log(data);
     if (data) {
         alert('movie deleted successfully');
     }else{

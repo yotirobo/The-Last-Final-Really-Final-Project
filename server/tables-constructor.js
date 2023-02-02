@@ -176,23 +176,6 @@ let action = [['added post', 'added post id 1', '2023-01-29 15:10:33', 1],
 ['rated media', 'rated media id 12 with an 2 star rating', '2023-01-29 22:43:33', 2],
 ['rated media', 'rated media id 17 with an 7 star rating', '2023-01-30 16:35:37', 3]];
 
-//fetch all in once - doesnt work yet
-// let firstInsertFetches = [{table_name:"media", values: media},
-//                                       {table_name:"user", values: user},
-//                                       {table_name:"password", values: password},
-//                                       {table_name:"user_watched", values: user_watched},
-//                                       {table_name:"post", values: post},
-//                                       {table_name:"action", values: action}];
-
-// for (let i in firstInsertFetches) {
-//     console.log(`http://localhost:5000/firstInsert/${firstInsertFetches[i].table_name}`)
-//     fetch(`http://localhost:5000/firstInsert/${firstInsertFetches[i].table_name}`, {
-//         method: 'POST',
-//         headers: { 'Content-Type': 'application/json' },
-//         body: JSON.stringify({ data: firstInsertFetches[i].values})
-//     })
-// }
-
 // fetch('http://localhost:5000/firstInsert/media', {
 //     method: 'POST',
 //     headers: { 'Content-Type': 'application/json' },
