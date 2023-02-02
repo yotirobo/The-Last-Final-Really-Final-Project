@@ -11,10 +11,9 @@ async function sendEmail(text) {
     secure: false,
     auth: {
       user: yotielh@gmail.com,
-      pass: 'yoti12345'
+      pass: 'Yoti12345'
     }
-  });
-
+    });
   // Define the email options
   let mailOptions = {
     from: '"Yotiel tv & movies services" <your-email-address>',
