@@ -3,7 +3,7 @@ import NavComponent from "./navComponent";
 import '../css/profile.css';
 
 function ShowInfo() {
-    const [currentUser, setCurrentUser ] =useState(JSON.parse(localStorage.getItem("userOnline")));
+    const [currentUser, setCurrentUser ] = useState(JSON.parse(localStorage.getItem("userOnline")));
     const [draw, setDraw] = useState([]);
     const [userData, setUserData] = useState({});
     const [ifData, setIfData] = useState(false)
@@ -39,14 +39,14 @@ function ShowInfo() {
         const data = await respone.json();
         setIfData(true);
         let tempArray = [];
-        for (let item in userData) {
-            tempArray.push({ title: item, body: userData[item], type: getType(item) })
-        }
         let tempObj = {};
-        for (let item in userData) {
-            tempObj[item] = userData[item]
-        }
-        setUserData(data[0])
+            for (let item in userData) {
+                tempArray.push({ title: item, body: userData[item], type: getType(item) })
+            }
+            for (let item in userData) {
+                tempObj[item] = userData[item]
+            }
+         setUserData(data[0])
         setDraw(tempArray)
         setProfileInfo(tempObj)
     }
@@ -95,8 +95,8 @@ function ShowInfo() {
         if (data) {
             alert('Updated!')
             window.location.reload();
-            localStorage.setItem("userOnline", JSON.stringify({name: profileInfo.name}));
-            setCurrentUser(localStorage.getItem("userOnline"));
+            localStorage.setItem("userOnline", JSON.stringify({name: profileInfo.name, user_id: currentUser.user_id, is_admin: currentUser.is_admin}));
+            setCurrentUser(prev => ({...prev, name: profileInfo.name, user_id: prev.user_id, is_admin: prev.is_admin}));
             return;
         } else {
             alert('Something went wrong please try again')
