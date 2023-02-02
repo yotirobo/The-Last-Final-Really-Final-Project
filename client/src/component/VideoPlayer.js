@@ -24,9 +24,6 @@ function VideoPlayer() {
 
     let moment = require('moment');
 
-    window.onbeforeunload = ()=>
-
-    console.log("likeFlag: ", likeFlag);
     useEffect(() => {
         setMedia_id(window.location.search.split('?media_id=')[1]);
     }, [])
@@ -167,18 +164,18 @@ function VideoPlayer() {
                 <br />
                 {video}
                 <div className='info-div' ><br />
-                    <span>did you like this video? like and rate us! &nbsp; </span> <br /><br />
-                    <span onClick={likeVideo}>{likeFlag ? "👍🏾 Thank You For Liking this video!" : "👍🏻"}</span> <br /><br />
-                    <span onClick={() => setStarFlag(1)}>{starFlag > 0 ? "⭐" : "⚝"}</span>
-                    <span onClick={() => setStarFlag(2)}>{starFlag > 1 ? "⭐" : "⚝"}</span>
-                    <span onClick={() => setStarFlag(3)}>{starFlag > 2 ? "⭐" : "⚝"}</span>
-                    <span onClick={() => setStarFlag(4)}>{starFlag > 3 ? "⭐" : "⚝"}</span>
-                    <span onClick={() => setStarFlag(5)}>{starFlag > 4 ? "⭐" : "⚝"}</span>
-                    <span onClick={() => setStarFlag(6)}>{starFlag > 5 ? "⭐" : "⚝"}</span>
-                    <span onClick={() => setStarFlag(7)}>{starFlag > 6 ? "⭐" : "⚝"}</span>
-                    <span onClick={() => setStarFlag(8)}>{starFlag > 7 ? "⭐" : "⚝"}</span>
-                    <span onClick={() => setStarFlag(9)}>{starFlag > 8 ? "⭐" : "⚝"}</span>
-                    <span onClick={() =>  setStarFlag(10)}>{starFlag > 9 ? "⭐" : "⚝"}</span><br /><br />
+                    <span className='rateAndLike' >did you like this video? like and rate us! &nbsp; </span> <br /><br />
+                    <span className='rateAndLike' onClick={likeVideo}>{likeFlag ? "👍🏾 Thank You For Liking this video!" : "👍🏻"}</span> <br /><br />
+                    <span className='rateAndLike' onClick={() => setStarFlag(1)}>{starFlag > 0 ? "⭐" : "⚝"}</span>
+                    <span className='rateAndLike' onClick={() => setStarFlag(2)}>{starFlag > 1 ? "⭐" : "⚝"}</span>
+                    <span className='rateAndLike' onClick={() => setStarFlag(3)}>{starFlag > 2 ? "⭐" : "⚝"}</span>
+                    <span className='rateAndLike' onClick={() => setStarFlag(4)}>{starFlag > 3 ? "⭐" : "⚝"}</span>
+                    <span className='rateAndLike' onClick={() => setStarFlag(5)}>{starFlag > 4 ? "⭐" : "⚝"}</span>
+                    <span className='rateAndLike' onClick={() => setStarFlag(6)}>{starFlag > 5 ? "⭐" : "⚝"}</span>
+                    <span className='rateAndLike' onClick={() => setStarFlag(7)}>{starFlag > 6 ? "⭐" : "⚝"}</span>
+                    <span className='rateAndLike' onClick={() => setStarFlag(8)}>{starFlag > 7 ? "⭐" : "⚝"}</span>
+                    <span className='rateAndLike' onClick={() => setStarFlag(9)}>{starFlag > 8 ? "⭐" : "⚝"}</span>
+                    <span className='rateAndLike' onClick={() =>  setStarFlag(10)}>{starFlag > 9 ? "⭐" : "⚝"}</span><br /><br />
                     {videoInfoDiv}
                 </div>
                 <h3>posts:</h3>
