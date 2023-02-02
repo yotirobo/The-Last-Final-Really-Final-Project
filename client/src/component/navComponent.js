@@ -7,7 +7,7 @@ function NavComponent() {
 
     return (
         < div className="link">
-            <img style={{display:"block"}} src='../photos/logo3.png' alt='logo' />
+            <img src={require('../photos/logo3.png')} alt='logo' />
             <br />
             <Link to="/movies">Movies</Link>
             <br />
