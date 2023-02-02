@@ -1,0 +1,23 @@
+.select-div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+select {
+    padding: 10px;
+    background-color: #fff7e9;
+    border: 2px solid #ff731d;
+    color: #a2f717;
+    border-radius: 5px;
+}
+
+h5 {
+    color: #ff731d;
+    margin-bottom: 10px;
+}

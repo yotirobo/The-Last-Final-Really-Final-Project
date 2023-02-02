@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import '../css/tracking.css';
 
 const Tracking = () => {
     const [selected, setSelected] = useState("byId");
