@@ -2,7 +2,11 @@
     font-size: 4vw;
     margin-bottom: 10px;
 }
-
+.body{
+    background-color: black;
+    color: white;
+    padding: 10px;
+}
 .media-h2 {
     text-align: left;
     margin-left: 20px;
@@ -76,16 +80,4 @@
     display: none;
 }
 
-/* .to-button{
-    margin-top: 10px;
-    margin-left: 20px;
-    width: 140px;
-    display: inline;
-    background-color: rgb(104, 234, 189);
-    color: black;
-}
-
-#to-div{
-   display: flex;
-  align-items: center;  
-} */
+ 
