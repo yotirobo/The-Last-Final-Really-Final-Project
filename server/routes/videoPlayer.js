@@ -113,7 +113,7 @@ router.get('/rate', (req, res) => {
         if (err) throw err;
     });
 
-    var sql = `UPDATE media m SET m.rate=LEAST(m.rate / 5 * ${req.query.rate}+0.1, 10) WHERE m.media_id = ${req.query.media_id}`;
+    var sql = `UPDATE media m SET m.rate=LEAST((m.rate*10+${req.query.rate})/11, 10) WHERE m.media_id = ${req.query.media_id}`;
     con.query(sql, (err, result) => {
         if (err) { console.log(err); return; }
     })

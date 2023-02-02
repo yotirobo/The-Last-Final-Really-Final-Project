@@ -24,6 +24,9 @@ function VideoPlayer() {
 
     let moment = require('moment');
 
+    window.onbeforeunload = ()=>
+
+    console.log("likeFlag: ", likeFlag);
     useEffect(() => {
         setMedia_id(window.location.search.split('?media_id=')[1]);
     }, [])
@@ -33,7 +36,7 @@ function VideoPlayer() {
         making_video_render();
         getVideoInfo();
         getVideoPosts();
-    }, [media_id, reRenderPosts, overallRate])
+    }, [media_id, reRenderPosts, overallRate, likeFlag])
 
     useEffect(() => {
         if (videoInfo.length) {
@@ -41,8 +44,12 @@ function VideoPlayer() {
             making_video_title();
         }
         making_posts_div();
-        setStarFlag(userChoise.rate)
-        userChoise.liked === 0 ? setLikeFlag(false) : setLikeFlag(true);
+        if (userChoise.rate){
+            setStarFlag(userChoise.rate)
+        }
+        if(userChoise.liked){
+            userChoise.liked === 0 ? setLikeFlag(false) : setLikeFlag(true);
+        }
     }, [videoInfo, videoPosts])
 
 
@@ -151,7 +158,7 @@ function VideoPlayer() {
             getAndSendData(`http://localhost:5000/videoPlayer/rate/?rate=${starFlag}&&user_id=${userData.user_id}&&media_id=${media_id}`, setOverallRate)
         }
     }
-
+    
     return (
         <>
             <NavComponent />
@@ -171,7 +178,7 @@ function VideoPlayer() {
                     <span onClick={() => setStarFlag(7)}>{starFlag > 6 ? "⭐" : "⚝"}</span>
                     <span onClick={() => setStarFlag(8)}>{starFlag > 7 ? "⭐" : "⚝"}</span>
                     <span onClick={() => setStarFlag(9)}>{starFlag > 8 ? "⭐" : "⚝"}</span>
-                    <span onClick={() => setStarFlag(10)}>{starFlag > 9 ? "⭐" : "⚝"}</span><br /><br />
+                    <span onClick={() =>  setStarFlag(10)}>{starFlag > 9 ? "⭐" : "⚝"}</span><br /><br />
                     {videoInfoDiv}
                 </div>
                 <h3>posts:</h3>
