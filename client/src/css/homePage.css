@@ -46,12 +46,13 @@ form {
     padding: 10px 20px;
     font-size: 18px;
     border-radius: 5px;
-    background-color: #e50914;
+    background-color: rgb(255, 114, 79);
     color: white;
     border: none;
     margin-top: 20px;
   }
-  
+
   button:hover {
+    background-color: rgb(152, 41, 0);
     cursor: pointer;
   }
