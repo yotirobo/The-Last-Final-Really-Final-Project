@@ -3,7 +3,7 @@
     "columns" : [
         {"col_name": "action_id", "type": "INT" , "AUTO_INCREMENT": true , "PRIMARY_KEY": true, "UNIQUE":true, "NOT_NULL":true, "FOREIGN_KEY": false},
         {"col_name": "action_type", "type": "ENUM('added post', 'deleted post', 'likes media', 'remove like', 'rated media')" , "AUTO_INCREMENT": false , "PRIMARY_KEY": false, "UNIQUE":false, "NOT_NULL":true, "FOREIGN_KEY": false},
-        {"col_name": "description", "type": "VARCHAR(60)" , "AUTO_INCREMENT": false , "PRIMARY_KEY": false, "UNIQUE": true, "NOT_NULL": true, "FOREIGN_KEY": false},
+        {"col_name": "description", "type": "VARCHAR(60)" , "AUTO_INCREMENT": false , "PRIMARY_KEY": false, "UNIQUE": false, "NOT_NULL": true, "FOREIGN_KEY": false},
         {"col_name": "time", "type": "DATETIME" , "AUTO_INCREMENT": false , "PRIMARY_KEY": false, "UNIQUE": false, "NOT_NULL": true, "FOREIGN_KEY": false},
         {"col_name": "user_id", "type": "INT" , "AUTO_INCREMENT": false , "PRIMARY_KEY": false, "UNIQUE":false, "NOT_NULL":true, "FOREIGN_KEY": "user"}
     ]

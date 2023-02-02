@@ -110,10 +110,10 @@ function Sdarot() {
             <NavComponent />
             <div>
                 <h1 className='media-h1'>TV Shows</h1><br />
-                <h2 className='media-h2'>TVshows in your favorite genre: {favoriteGenre}</h2>
+                <h2 className='media-h2'>TV shows in your favorite genre: {favoriteGenre}</h2>
                 <ul className='images-ul'>{favoriteGenreTVshowsList}</ul>
                 <hr />
-                <h2 className='media-h2'>TVshows you haven't watched yet:</h2>
+                <h2 className='media-h2'>TV shows you haven't watched yet:</h2>
                 <ul className='images-ul'>{unwatchedTVshowsList}</ul>
                 <hr />
                 <h2 className='media-h2'>Watch again:</h2>

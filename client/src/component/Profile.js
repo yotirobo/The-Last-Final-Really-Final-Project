@@ -53,7 +53,6 @@ function ShowInfo() {
     const submitButton = () => {
         setFlag(!flag)
         edit();
-        console.log('yy');
     }
 
     const getType = (item) => {
@@ -77,8 +76,6 @@ function ShowInfo() {
     }
     
     const edit = async () => {
-        console.log('got it ');
-        console.log(profileInfo.favorite_genre)
         const response = await fetch(`http://localhost:5000/profile/edit?user_id=${currentUser.user_id}`, {
             method: 'POST',
             headers: {
@@ -95,11 +92,9 @@ function ShowInfo() {
             })
         });
         let data = await response.json();
-        console.log(data);
         if (data) {
             alert('Updated!')
             window.location.reload();
-            console.log(data);
             localStorage.setItem("userOnline", JSON.stringify({name: profileInfo.name}));
             setCurrentUser(localStorage.getItem("userOnline"));
             return;

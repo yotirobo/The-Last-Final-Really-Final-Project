@@ -13,7 +13,6 @@ const Tracking = () => {
                 const data = await response.json();
                 console.log("aaa", data);
                 setTrackingData(data);
-                console.log(data);
             } catch (error) {
                 console.error('Error fetching tracking data: ', error);
             }
@@ -60,9 +59,8 @@ const Tracking = () => {
         }
         return sortedList.map((arr, index) => (
             <div key={index}>
-                {console.log("a",arr)}
                 <h5>Task number {index + 1}:</h5>
-                <p>{arr.name} {arr.description} at {moment.utc(arr.time).format('DD/MM/YY HH:mm:ss')}</p>
+                <p>{arr.name} {arr.description} at {moment.utc(arr.time).local().format('DD/MM/YY HH:mm:ss')}</p>
             </div>
         ));
     };
