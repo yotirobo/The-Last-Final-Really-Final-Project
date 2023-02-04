@@ -10,9 +10,9 @@ router.post('/media', function (req, res, next) {
 
 router.post('/media/addMovie', function (req, res, next) {
     const sql = `INSERT INTO media ( title , video_src, photo_src, deleted, publish_Date, likes, genre, rate, movie_or_TVShow) VALUES ?`;
-
     let values = [req.body.title, req.body.movie_or_TVShow === 'movie'? './Media/Movies/comind-soon2.webm' : './Media/TV-Shows/coming-soon.webm' , req.body.movie_or_TVShow === 'movie'? './Media/Movies-Photos/coming-soon.png' : './Media/TV-Shows-photos/coming-soon2.png', req.body.deleted, req.body.publish_Date, req.body.likes, req.body.genre, req.body.rate ,req.body.movie_or_TVShow];
     con.query(sql, [[values]], function (err, result) {
+        console.log(result);
         if (err) {console.log(err); res.send(err); return; };
         res.send(JSON.stringify(result));
     })

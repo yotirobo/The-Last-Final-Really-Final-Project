@@ -19,7 +19,6 @@ function VideoPlayer() {
     const [starFlag, setStarFlag] = useState(0);
     const [userChoise, setUserChoise] = useState([]);
     const [overallRate, setOverallRate] = useState(0);
-
     const addPostTitleRef = useRef();
     const addPostBodyRef = useRef();
 

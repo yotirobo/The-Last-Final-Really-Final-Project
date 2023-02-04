@@ -74,6 +74,7 @@ function ShowInfo() {
                     />
                     <label htmlFor="movie_or_TVShow">Movie or TV Show?</label>
                     <select onChange={handleAddMovie} name="movie_or_TVShow" id="movie_or_TVShow">
+                        <option> Choose video type </option>
                         <option value="movie">Movie</option>
                         <option value="TVShow">Tv Show</option>
 
