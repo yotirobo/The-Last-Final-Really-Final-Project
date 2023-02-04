@@ -98,7 +98,7 @@ function HomePage(props) {
                   <input onChange={handleChange} type="number" id="age" placeholder="Please insert your Age" required />
                 </li>
                 <li>
-                  <label htmlFor="genre">Choose your favorot:</label>
+                  <label htmlFor="genre">Choose your favorit genre:</label>
                   <select name="genre" id="genre">
                     <option value="Animated">Animated</option>
                     <option value="Comedy">Comedy</option>
